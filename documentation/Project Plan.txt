@@ -1,0 +1,64 @@
+HIS PROJECT TASKS (to be done till 01/12/2020):
+- use case
+- git repository
+- task division
+- documentation
+
+TO BE PRESENTED:
+- use case and motivation (business problem)
+- proposed solution
+- architecture (high level, not detailed)
+- tech stack
+- detailed project plan
+
+PROJECT PLAN:
+- Project planning
+
+- Project Proposal
+
+- SPRINT1: Application v0.1 [02/12/2020 - 22/12/2020]
+	. Sprint Planning
+	. Detailed Requirements documentation (making a project/product backlog)
+	. Detailed design (architecture, use case diagram, sequence diagram etc)
+	. Infrastructure setup (development tools + deployment)
+	. Basic blockchain up and running
+	. Detailed project vision demo
+	. Sprint Review/Retrospective
+	
+	----------------------------------------------------------------------------------------------------
+	Workshop: Environment setup session
+	----------------------------------------------------------------------------------------------------
+	
+- SPRINT2: Application v1.0 [23/12/2020 - 12/01/2021]
+	. Sprint Planning
+	. Developing backend
+	. Adding must have functionalities
+	. Testing
+	. Basic use case demo
+	. Sprint Review/Retrospective
+	
+- SPRINT3: Application v2.0 [13/01/2021 - 09/02/2021]
+	. Sprint Planning
+	. Developing backend
+	. Adding must have functionalities (if any spill over)
+	. working on Change Requests/ feedbacks from POs
+	. Developing front end
+	. Adding good to have functionalities
+	. Testing and validation
+	. Enhanced use case demo
+	. Sprint Review/Retrospective
+
+- SPRINT4: Application v3.0 (Release version) [03/03/2021 - 16/03/2021]
+	. Sprint Planning
+	. working on Change Requests/ feedbacks from POs
+	. Adding good to have functionalities (if any spill over)
+	. Code freeze (both backend and frontend)
+	. Testing and Validation
+	
+- SPRINT5: Documentation and Presentation [17/03/2021 - 30/03/2021]
+	. Sprint Planning
+	. Final Documentation
+	. Final presentation
+	. Project Review/Retrospective and GoodBye (hopefully with a good grade)
+	
+- D-DAY : Submission [31/03/2021]

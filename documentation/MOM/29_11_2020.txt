@@ -1,0 +1,13 @@
+MOM 29/11/2020
+
+1. Project Planning (overview)
+    1. Gantt chart/ any other planning
+        1. Provide detailed Sprint planning.
+2. Scenario: Medical
+    1. Problem Statement: Define properly the statement.
+    2. Define the uses cases (basic).
+    3. Solution using HF (basic idea on how we will tackle the problem).
+3. Tech Stack
+    1. Smart contract ( JS )
+    2. DB ( CouchDB / LevelDB )
+    3. Frontend  (AngularJS )

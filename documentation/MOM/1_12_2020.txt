@@ -1,0 +1,18 @@
+MOM 1/12/2020
+
+
+
+Daily Scrums: Tuesday
+			  Friday
+                         Monday
+
+Weekly working days/member: Minimum 2 days/week
+
+Requirements Gathering: All 4 team members
+
+Prepare user stories (Optional)
+
+Update project plan: use external tool (JIRA / Git / any other tool)
+
+Come up with the requirements and come up with the understanding of the system by Friday.
+

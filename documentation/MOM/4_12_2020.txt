@@ -1,0 +1,21 @@
+MOM 4/12/2020
+
+
+Brainstorm
+
+
+1. Doctors/Patients become the peers. A hospital will be an organisation with certain peers each performing specific tasks.
+2. Data encryption should be handled to avoid unnecessary access to other’s data.
+3. Multiple hospital connect to the network using different channels with their own peers and ledgers.
+4. If a ledger of one organisation has to be shared with another then the authentication should be provided by the user(patient). 
+5. Need authentication from patient before updating the record by the doctor
+6. Every transaction will have minimum 2 endorsing peers (doctor and patient and optional other medical personnel).
+7. System admin will have the right to modify a peer.
+8. Smart contracts is developed according to requirements and specification.
+9. Doctor has access to the entire ledger and patient has access to his/her own data.
+
+
+
+Task for Monday:
+1. Refine more on the requirements, try to improve find negatives or improve and think how the system would behave in real worlds with those requirements. 
+2. Everyone draw a black diagram on how the core system should look like and write few lines on how It works.

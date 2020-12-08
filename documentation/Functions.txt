@@ -1,0 +1,8 @@
+Possible functions required:
+-Registration
+-Read only permission
+-Grant permission
+-Read/ Write permission
+-Revoke permission
+-Query 
+-Invoke transaction (write)

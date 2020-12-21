@@ -69,8 +69,8 @@ Incase if any of the commands failed due to configurations or the network was no
 2. ```bash $docker rm -f $(docker ps -aq) ```
 3. ```bash $docker system prune -a ```
 4. ```bash $docker volume prune ```
-6. 6. Restart the docker.
-7. Once the docker is up ,open a new terminal and download the images (where the fabric samples are initally downloaded).
+5. Restart the docker.
+6. Once the docker is up ,open a new terminal and download the images (where the fabric samples are initally downloaded).
 ``` bash $ curl -sSL https://bit.ly/2ysbOFE | bash -s ```
 
 

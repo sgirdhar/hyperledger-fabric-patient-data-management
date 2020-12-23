@@ -15,15 +15,14 @@ $ git clone https://github.com/Shubham-Girdhar/hyperledger-fabric-patient-data-m
 ```
 2. **Before starting with the network is set-up start the docker.**
 
-3. Download the images to seperate folder using the following command.
-```bash 
+3. Run the following command to install the binaries and images.
+```bash
 $ curl -sSL https://bit.ly/2ysbOFE | bash -s
 ```
-This command will download the fabric samples, binaries and images. (But the binaries are already included in the Patient Data Management Repo, we are concerned with the images as this will be stored in docker)
 
-4. Change the working directory to /fabric-pdm/pdm-network
+4. Change the working directory to /fabric-samples/pdm-network
 ```bash
-$ cd ../fabric-pdm/pdm-network
+$ cd ../fabric-samples/pdm-network
 ```
 
 5. Use the following command to start the network, with 2 organization hospital1 and hospital2 with one peer each (peer0) and an Orderer node.
@@ -36,7 +35,7 @@ Should display the result in the terminal as follows,
 Docker dashboard will show the containers created for those nodes as follows,
 ![Alt Text](https://github.com/Shubham-Girdhar/hyperledger-fabric-patient-data-management/blob/main/Screenshots/Docker%20container%20for%20nodes.png)
 
-6. To create a channel with specific name use the following command, (remove the arugents to create a default channel called 'mychannel').
+6. To create a channel with specific name use the following command, (remove the arguments to create a default channel called 'mychannel').
 **Note: Channel names must be all lower case, less than 250 characters long and match the regular expression [a-z][a-z0-9.-]***
 ```bash
 $ ./network.sh createChannel -c hospitalchannel
@@ -47,8 +46,8 @@ Docker dashboard will show the containers created for those nodes as follows,
 ![Alt Text](https://github.com/Shubham-Girdhar/hyperledger-fabric-patient-data-management/blob/main/Screenshots/create%20channel%202.png)
 
 7. Deploy the chaincode.
-**Note: If default channel name is note used the the following command applies, else remove the channel arguments (-c) and run the command.**
-```bash 
+**Note: If default channel name is not used then the following command applies, else remove the channel arguments (-c) and run the command.**
+```bash
 $ network.sh deployCC -c hospitalchannel -ccn basic -ccp ../asset-transfer-basic/chaincode-javascript/ -ccl javascript
 ```
 This command will deploy a javascript chaincode on hospitalchannel
@@ -63,15 +62,29 @@ $ ./network.sh down
 ```
 
 ## Troubleshooting
-Incase if any of the commands failed due to configurations or the network was not brought down properly use the following commands to clear the corrupted docker images and fix the issue.
+Incase if any of the commands fail due to configurations or the network was not brought down properly use the following commands to clear the corrupted docker images and fix the issue.
 
-1. ```bash $docker stop $(docker ps -a -q) ```
-2. ```bash $docker rm -f $(docker ps -aq) ```
-3. ```bash $docker system prune -a ```
-4. ```bash $docker volume prune ```
+
+1. Stop the containers.
+```bash
+$docker stop $(docker ps -a -q)
+```
+2. Remove the containers
+```bash
+$docker rm -f $(docker ps -aq)
+```
+3. Remove all unused images not just dangling ones
+```bash
+$docker system prune -a
+```
+
+4. Remove all unused local volumes
+```bash
+$docker volume prune
+```
 5. Restart the docker.
-6. Once the docker is up ,open a new terminal and download the images (where the fabric samples are initally downloaded).
-``` bash $ curl -sSL https://bit.ly/2ysbOFE | bash -s ```
 
-
-
+6. Once the docker is up ,open a new terminal and download the images. (same as Step 3 in [Bring up the network section](### Bring up the network))
+``` bash
+$ curl -sSL https://bit.ly/2ysbOFE | bash -s
+```

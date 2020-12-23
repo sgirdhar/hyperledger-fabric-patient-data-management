@@ -84,7 +84,7 @@ $docker volume prune
 ```
 5. Restart the docker.
 
-6. Once the docker is up ,open a new terminal and download the images. (same as Step 3 in [Bring up the network section](Readme.md###Bring-up-the-network))
+6. Once the docker is up ,open a new terminal and download the images. (same as Step 3 in Bring up the network section)
 ``` bash
 $ curl -sSL https://bit.ly/2ysbOFE | bash -s
 ```

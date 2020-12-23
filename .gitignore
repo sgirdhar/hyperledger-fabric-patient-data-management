@@ -2,3 +2,13 @@
 documentation/.DS_Store
 .DS_Store
 *.code-workspace
+fabric-samples/bin/configtxgen
+fabric-samples/bin/configtxlator
+fabric-samples/bin/cryptogen
+fabric-samples/bin/discover
+fabric-samples/bin/fabric-ca-client
+fabric-samples/bin/fabric-ca-server
+fabric-samples/bin/idemixgen
+fabric-samples/bin/orderer
+fabric-samples/bin/osnadmin
+fabric-samples/bin/peer

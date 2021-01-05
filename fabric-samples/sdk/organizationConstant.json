@@ -1,0 +1,14 @@
+{
+	"Hospital1":{
+		"path": "fabric-samples/pdm-network/organizations/peerOrganizations/hospital1.com/connection-hospital1.json",
+		 "msp": "Hospital1MSP",
+		 "ca": "ca.hospital1",
+		 "department": "hospital1.department1"
+	},
+	"Hospital2":{
+		"path": "fabric-samples/pdm-network/organizations/peerOrganizations/hospital2.com/connection-hospital2.json",
+		"msp": "Hospital2MSP",
+		"ca": "ca.hospital2",
+		"department": "hospital2.department1"
+	}
+}

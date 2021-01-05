@@ -277,9 +277,9 @@ function networkUp() {
 
   COMPOSE_FILES="-f ${COMPOSE_FILE_BASE}"
 
-  # if [ "${DATABASE}" == "couchdb" ]; then
-  #   COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_COUCH}"
-  # fi
+  if [ "${DATABASE}" == "couchdb" ]; then
+    COMPOSE_FILES="${COMPOSE_FILES} -f ${COMPOSE_FILE_COUCH}"
+  fi
 
   IMAGE_TAG=$IMAGETAG docker-compose ${COMPOSE_FILES} up -d 2>&1
 

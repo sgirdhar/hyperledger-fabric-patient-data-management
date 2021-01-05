@@ -48,7 +48,7 @@ Docker dashboard will show the containers created for those nodes as follows,
 7. Deploy the chaincode.
 **Note: If default channel name is not used then the following command applies, else remove the channel arguments (-c) and run the command.**
 ```bash
-$ network.sh deployCC -c hospitalchannel -ccn basic -ccp ../asset-transfer-basic/chaincode-javascript/ -ccl javascript
+$ ./network.sh deployCC -c hospitalchannel -ccn basic -ccp ../asset-transfer-basic/chaincode-javascript/ -ccl javascript
 ```
 This command will deploy a javascript chaincode on hospitalchannel
 

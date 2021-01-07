@@ -2,7 +2,7 @@
  * @author Vineeth Bhat
  * @email vineeth.bhat@stud.fra-uas.de
  * @create date 01-01-2021 11:29:51
- * @modify date 05-01-2021 16:37:28
+ * @modify date 07-01-2021 00:51:20
  * @desc route entries for the client to access the application functionalities.
  */
 
@@ -17,10 +17,12 @@ const clinetApp = express();
 clinetApp.use(morgan('combined'));
 clinetApp.use(bodyParser.json());
 clinetApp.use(cors());
+const jwt = require('jsonwebtoken');
 clinetApp.use(bodyParser.urlencoded({
   extended: true
 }));
 
+const credentials = require('./credentials.json')
 clinetApp.listen(5001, () => console.log('Backend server running on 5001'));
 
 /**
@@ -32,11 +34,13 @@ clinetApp.listen(5001, () => console.log('Backend server running on 5001'));
  * @param  {} res
  */
 clinetApp.post('/login', (req, res) => {
-	const {username, password} = req.body;
-	
-	const user = username === 'admin' && password === 'adminpw';
+	const {username, password, role} = req.body;
+	const passwd = fetchCredentials(username);
+	const user = password === passwd;
 	if(user){
-		res.send(`${username}, Successfully logged in`);
+		// Generate an access token
+    const accessToken = jwt.sign({username: username, role: role}, password);
+    res.json({accessToken,});
 	} else {
 		res.send("Invalid Username or password");
 	}
@@ -51,7 +55,7 @@ clinetApp.post('/login', (req, res) => {
  * @param  {} async(req, res)
  * @param  {} res
  */
-clinetApp.post('/registerDoctor', async (req, res) => {
+clinetApp.post('/registerDoctor', authenticateJWT,  async (req, res) => {
 	const doctorObject = createUserObject(req.body)
 	const response = await app.registerDoctor(doctorObject);
 	if (response.error) {
@@ -71,7 +75,7 @@ clinetApp.post('/registerDoctor', async (req, res) => {
  * @param  {} async(req, res)
  * @param  {} res
  */
-clinetApp.post('/registerPatient', async (req, res) => {
+clinetApp.post('/registerPatient', authenticateJWT, async (req, res) => {
 	const patientObject = createUserObject(req.body)
 	const response = await app.registerPatient(patientObject);
 	if (response.error) {
@@ -89,7 +93,7 @@ clinetApp.post('/registerPatient', async (req, res) => {
  * @param  {} async(req, res)
  * @param  {} res
  */
-clinetApp.post('/updatePatientData', async (req, res) => {
+clinetApp.post('/updatePatientData', authenticateJWT, async (req, res) => {
 	const userObj = createUserObject(req.body)
 	const response = await app.updatePatientData(userObj);
 	if (response.error) {
@@ -107,7 +111,7 @@ clinetApp.post('/updatePatientData', async (req, res) => {
  * @param  {} async(req, res)
  * @param  {} res
  */
-clinetApp.post('/readPatientData', async (req, res) => {
+clinetApp.post('/readPatientData', authenticateJWT, async (req, res) => {
 	const userObj = createUserObject(req.body)
 	const response = await app.readPatientData(userObj);
 	if (response.error) {
@@ -125,7 +129,7 @@ clinetApp.post('/readPatientData', async (req, res) => {
  * @param  {} async(req, res)
  * @param  {} res
  */
-clinetApp.post('/readAllPatientData', async (req, res) => {
+clinetApp.post('/readAllPatientData', authenticateJWT, async (req, res) => {
 	const userObj = createUserObject(req.body)
 	const response = await app.readPatientData(userObj);
 	if (response.error) {
@@ -135,7 +139,7 @@ clinetApp.post('/readAllPatientData', async (req, res) => {
   }
 });
 
-clinetApp.post('/initialize', async (req, res) => {
+clinetApp.post('/initialize', authenticateJWT, async (req, res) => {
 	const userObj = createUserObject(req.body)
 	const response = await app.initLedger(userObj);
 	if (response.error) {
@@ -157,7 +161,48 @@ function createUserObject(requestBody){
 		id: requestBody.id,
 		password: requestBody.password,
 		org: requestBody.organization,
-		doctorId: requestBody.doctorId
+		doctorId: requestBody.doctorId,
+		role: role
 	}
 	return userObject;
 }
+
+/**
+ * Method to get password from the credentials file. 
+ * If the username doesnot exist then it will return empty string.
+ * @create date 07-01-2021
+ * @param  {} username
+ * @return password
+ */
+function fetchCredentials(username){
+	const cred = credentials[username]
+	if(cred){
+		return cred.password
+	}else {
+		return ""
+	}
+}
+/**
+ * Method to authenticate the access token generated.
+ * @author Vineeth Bhat
+ * @create date 07-01-2021
+ * @param  {} req
+ * @param  {} res
+ * @param  {} next
+ */
+const authenticateJWT = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+		const token = authHeader.split(' ')[1];
+	const password = fetchCredentials(req.body.id);
+    jwt.verify(token, password, (err, user) => {
+      if (err) {
+        return res.sendStatus(403);
+      }
+			req.user = user;
+      next();
+    });
+  } else {
+    res.sendStatus(401);
+  }
+};

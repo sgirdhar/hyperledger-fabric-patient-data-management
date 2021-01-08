@@ -8,7 +8,7 @@ const path = require('path')
 async function main() {
   try {
     // load the network configuration
-    const ccpPath = path.resolve(__dirname, '..', '..', 'test-network', 'organizations', 'peerOrganizations', 'hospital2.com', 'connection-hospital2.json')
+    const ccpPath = path.resolve(__dirname, '..', '..', 'fabric-samples/pdm-network', 'organizations', 'peerOrganizations', 'hospital2.com', 'connection-hospital2.json')
     const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'))
 
     // Create a new CA client for interacting with the CA.

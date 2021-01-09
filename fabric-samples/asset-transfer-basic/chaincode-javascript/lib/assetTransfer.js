@@ -2,6 +2,8 @@
  * Copyright IBM Corp. All Rights Reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
+ * 
+ * Modified by: Shubham Girdhar
  */
 
 'use strict';
@@ -45,60 +47,107 @@ class AssetTransfer extends Contract {
         return JSON.stringify(asset);
     }
 
-    // ReadAsset returns the asset stored in the world state with given id.
-    async ReadAsset(ctx, id) {
-        const assetJSON = await ctx.stub.getState(id); // get the asset from chaincode state
-        if (!assetJSON || assetJSON.length === 0) {
-            throw new Error(`The asset ${id} does not exist`);
+    // Initialising the patient ledger
+    async InitPatientLedger(ctx) {
+        const records = [
+            {
+                ID: 'EHR1',
+                PatientId: 'Patient1',
+                Diagnosis: 'D1',
+                Medication: 'M1',
+                DoctorId: 'Doc1',
+            },
+            {
+                ID: 'EHR2',
+                PatientId: 'Patient2',
+                Diagnosis: 'D2',
+                Medication: 'M2',
+                DoctorId: 'Doc2',
+            },
+            {
+                ID: 'EHR3',
+                PatientId: 'Patient3',
+                Diagnosis: 'D3',
+                Medication: 'M3',
+                DoctorId: 'Doc1',
+            },
+        ];
+
+        for (const record of records) {
+            // asset.docType = 'EHR';
+            await ctx.stub.putState(record.ID, Buffer.from(JSON.stringify(record)));
+            console.info(`Record ${record.ID} initialized`);
         }
-        return assetJSON.toString();
     }
 
-    // UpdateAsset updates an existing asset in the world state with provided parameters.
-    async UpdateAsset(ctx, id, color, size, owner, appraisedValue) {
-        const exists = await this.AssetExists(ctx, id);
-        if (!exists) {
-            throw new Error(`The asset ${id} does not exist`);
-        }
-
-        // overwriting original asset with new asset
-        const updatedAsset = {
+    // CreateRecord issues a new record to the world state with given details.
+    async CreateRecord(ctx, id, patientId, diagnosis, medication, doctorId) {
+        const record = {
             ID: id,
-            Color: color,
-            Size: size,
-            Owner: owner,
-            AppraisedValue: appraisedValue,
+            PatientId: patientId,
+            Diagnosis: diagnosis,
+            Medication: medication,
+            DoctorId: doctorId,
+            // docType: 'EHR',
         };
-        return ctx.stub.putState(id, Buffer.from(JSON.stringify(updatedAsset)));
+        ctx.stub.putState(id, Buffer.from(JSON.stringify(record)));
+        return JSON.stringify(record);
     }
 
-    // DeleteAsset deletes an given asset from the world state.
-    async DeleteAsset(ctx, id) {
-        const exists = await this.AssetExists(ctx, id);
+    // ReadRecord returns the record stored in the world state with given id.
+    async ReadRecord(ctx, id) {
+        const recordJSON = await ctx.stub.getState(id); // get the record from chaincode state
+        if (!recordJSON || recordJSON.length === 0) {
+            throw new Error(`The Record ${id} does not exist`);
+        }
+        return recordJSON.toString();
+    }
+
+    // UpdateRecord updates an existing record in the world state with provided parameters.
+    async UpdateRecord(ctx, id, patientId, diagnosis, medication, doctorId) {
+        const exists = await this.RecordExists(ctx, id);
         if (!exists) {
-            throw new Error(`The asset ${id} does not exist`);
+            throw new Error(`The record ${id} does not exist`);
+        }
+
+        // overwriting original record with new record
+        const updatedRecord = {
+            ID: id,
+            PatientId: patientId,
+            Diagnosis: diagnosis,
+            Medication: medication,
+            DoctorId: doctorId,
+        };
+        return ctx.stub.putState(id, Buffer.from(JSON.stringify(updatedRecord)));
+    }
+
+    // DeleteRecord deletes a given record from the world state.
+    async DeleteRecord(ctx, id) {
+        const exists = await this.RecordExists(ctx, id);
+        if (!exists) {
+            throw new Error(`The record ${id} does not exist`);
         }
         return ctx.stub.deleteState(id);
     }
 
-    // AssetExists returns true when asset with given ID exists in world state.
-    async AssetExists(ctx, id) {
-        const assetJSON = await ctx.stub.getState(id);
-        return assetJSON && assetJSON.length > 0;
+    // RecordExists returns true when record with given ID exists in world state.
+    async RecordExists(ctx, id) {
+        const recordJSON = await ctx.stub.getState(id);
+        return recordJSON && recordJSON.length > 0;
     }
 
-    // TransferAsset updates the owner field of asset with given id in the world state.
-    async TransferAsset(ctx, id, newOwner) {
-        const assetString = await this.ReadAsset(ctx, id);
-        const asset = JSON.parse(assetString);
-        asset.Owner = newOwner;
-        return ctx.stub.putState(id, Buffer.from(JSON.stringify(asset)));
+    // TransferRecord updates the DoctorId field of record with given id in the world state.
+    async TransferRecord(ctx, id, newDoctor) {
+        const recordString = await this.ReadRecord(ctx, id);
+        const record = JSON.parse(recordString);
+        record.DoctorId = newDoctor;
+        return ctx.stub.putState(id, Buffer.from(JSON.stringify(record)));
     }
 
-    // GetAllAssets returns all assets found in the world state.
-    async GetAllAssets(ctx) {
+    // GetAllRecords returns all records found in the world state.
+    async GetAllRecords(ctx) {
         const allResults = [];
-        // range query with empty string for startKey and endKey does an open-ended query of all assets in the chaincode namespace.
+        // range query with empty string for startKey and endKey does an open-ended query of all records in the chaincode namespace.
         const iterator = await ctx.stub.getStateByRange('', '');
         let result = await iterator.next();
         while (!result.done) {

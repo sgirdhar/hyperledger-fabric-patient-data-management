@@ -1,0 +1,46 @@
+Chaincode Queries
+
+Step 1: Deploy chaincode using ./network.sh deployCC -ccl javscript
+
+Step 2: export PATH=${PWD}/../bin:$PATH
+		export FABRIC_CFG_PATH=$PWD/../config/
+		
+Step3: update environment variables to act as peer for Hospital1 or Hospital2
+
+------------ Hospital1 ------------
+export CORE_PEER_TLS_ENABLED=true
+export CORE_PEER_LOCALMSPID="Hospital1MSP"
+export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/hospital1.com/peers/peer0.hospital1.com/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/hospital1.com/users/Admin@hospital1.com/msp
+export CORE_PEER_ADDRESS=localhost:7051
+
+------------ Hospital2 ------------
+export CORE_PEER_TLS_ENABLED=true
+export CORE_PEER_LOCALMSPID="Hospital2MSP"
+export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/hospital2.com/peers/peer0.hospital2.com/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/hospital2.com/users/Admin@hospital2.com/msp
+export CORE_PEER_ADDRESS=localhost:9051
+
+--------------- invoking CC with new peers ---------------
+# Initialise ledger
+peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/hospital1.com/peers/peer0.hospital1.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/hospital2.com/peers/peer0.hospital2.com/tls/ca.crt -c '{"function":"InitPatientLedger","Args":[]}'
+
+# Create new EHR
+peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/hospital1.com/peers/peer0.hospital1.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/hospital2.com/peers/peer0.hospital2.com/tls/ca.crt -c '{"function":"CreateRecord","Args":["EHR4","Patient4","D4","M4","Doc4"]}'
+
+# Update EHR
+peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/hospital1.com/peers/peer0.hospital1.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/hospital2.com/peers/peer0.hospital2.com/tls/ca.crt -c '{"function":"UpdateRecord","Args":["EHR4","Patient4","D4","M4","Doc5"]}'
+
+# Update doctor for EHR
+peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/hospital1.com/peers/peer0.hospital1.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/hospital2.com/peers/peer0.hospital2.com/tls/ca.crt -c '{"function":"TransferRecord","Args":["EHR4","Doc4"]}'
+
+# Delete EHR
+peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile ${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n basic --peerAddresses localhost:7051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/hospital1.com/peers/peer0.hospital1.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles ${PWD}/organizations/peerOrganizations/hospital2.com/peers/peer0.hospital2.com/tls/ca.crt -c '{"function":"DeleteRecord","Args":["EHR4"]}'
+
+--------------- querying CC with new peers ---------------
+peer chaincode query -C mychannel -n basic -c '{"Args":["GetAllRecords"]}'
+
+peer chaincode query -C mychannel -n basic -c '{"Args":["ReadRecord","EHR4"]}'
+
+peer chaincode query -C mychannel -n basic -c '{"Args":["RecordExists","EHR4"]}'
+

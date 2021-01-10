@@ -5,14 +5,14 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-# This script is designed to be run in the org3cli container as the
-# second step of the EYFN tutorial. It joins the org3 peers to the
+# This script is designed to be run in the hospital3cli container as the
+# second step of the EYFN tutorial. It joins the hospital3 peers to the
 # channel previously setup in the BYFN tutorial and install the
-# chaincode as version 2.0 on peer0.org3.
+# chaincode as version 2.0 on peer0.hospital3.
 #
 
 echo
-echo "========= Getting Org3 on to your test network ========= "
+echo "========= Getting hospital3 on to your test network ========= "
 echo
 CHANNEL_NAME="$1"
 DELAY="$2"
@@ -26,7 +26,7 @@ COUNTER=1
 MAX_RETRY=5
 
 # import environment variables
-. scripts/org3-scripts/envVarCLI.sh
+. scripts/hospital3-scripts/envVarCLI.sh
 
 ## Sometimes Join takes time hence RETRY at least 5 times
 joinChannelWithRetry() {
@@ -59,10 +59,10 @@ cat log.txt
 verifyResult $res "Fetching config block from orderer has Failed"
 
 joinChannelWithRetry 3
-echo "===================== peer0.org3 joined channel '$CHANNEL_NAME' ===================== "
+echo "===================== peer0.hospital3 joined channel '$CHANNEL_NAME' ===================== "
 
 echo
-echo "========= Finished adding Org3 to your test network! ========= "
+echo "========= Finished adding hospital3 to your test network! ========= "
 echo
 
 exit 0

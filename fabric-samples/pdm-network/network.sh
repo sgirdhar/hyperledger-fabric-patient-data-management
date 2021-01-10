@@ -342,7 +342,7 @@ function networkDown() {
     docker run --rm -v $(pwd):/data busybox sh -c 'cd /data && rm -rf organizations/fabric-ca/hospital1/msp organizations/fabric-ca/hospital1/tls-cert.pem organizations/fabric-ca/hospital1/ca-cert.pem organizations/fabric-ca/hospital1/IssuerPublicKey organizations/fabric-ca/hospital1/IssuerRevocationPublicKey organizations/fabric-ca/hospital1/fabric-ca-server.db'
     docker run --rm -v $(pwd):/data busybox sh -c 'cd /data && rm -rf organizations/fabric-ca/hospital2/msp organizations/fabric-ca/hospital2/tls-cert.pem organizations/fabric-ca/hospital2/ca-cert.pem organizations/fabric-ca/hospital2/IssuerPublicKey organizations/fabric-ca/hospital2/IssuerRevocationPublicKey organizations/fabric-ca/hospital2/fabric-ca-server.db'
     docker run --rm -v $(pwd):/data busybox sh -c 'cd /data && rm -rf organizations/fabric-ca/ordererOrg/msp organizations/fabric-ca/ordererOrg/tls-cert.pem organizations/fabric-ca/ordererOrg/ca-cert.pem organizations/fabric-ca/ordererOrg/IssuerPublicKey organizations/fabric-ca/ordererOrg/IssuerRevocationPublicKey organizations/fabric-ca/ordererOrg/fabric-ca-server.db'
-    docker run --rm -v $(pwd):/data busybox sh -c 'cd /data && rm -rf addOrg3/fabric-ca/org3/msp addOrg3/fabric-ca/org3/tls-cert.pem addOrg3/fabric-ca/org3/ca-cert.pem addOrg3/fabric-ca/org3/IssuerPublicKey addOrg3/fabric-ca/org3/IssuerRevocationPublicKey addOrg3/fabric-ca/org3/fabric-ca-server.db'
+    docker run --rm -v $(pwd):/data busybox sh -c 'cd /data && rm -rf addOrg3/fabric-ca/hospital3/msp addOrg3/fabric-ca/hospital3/tls-cert.pem addOrg3/fabric-ca/hospital3/ca-cert.pem addOrg3/fabric-ca/hospital3/IssuerPublicKey addOrg3/fabric-ca/hospital3/IssuerRevocationPublicKey addOrg3/fabric-ca/hospital3/fabric-ca-server.db'
     # remove channel and script artifacts
     docker run --rm -v $(pwd):/data busybox sh -c 'cd /data && rm -rf channel-artifacts log.txt *.tar.gz'
 
@@ -378,9 +378,9 @@ COMPOSE_FILE_COUCH=docker/docker-compose-couch.yaml
 # certificate authorities compose file
 COMPOSE_FILE_CA=docker/docker-compose-ca.yaml
 # use this as the docker compose couch file for org3
-COMPOSE_FILE_COUCH_ORG3=addOrg3/docker/docker-compose-couch-org3.yaml
+COMPOSE_FILE_COUCH_ORG3=addOrg3/docker/docker-compose-couch-hospital3.yaml
 # use this as the default docker-compose yaml definition for org3
-COMPOSE_FILE_ORG3=addOrg3/docker/docker-compose-org3.yaml
+COMPOSE_FILE_ORG3=addOrg3/docker/docker-compose-hospital3.yaml
 #
 # use go as the default language for chaincode
 CC_SRC_LANGUAGE="go"

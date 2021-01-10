@@ -13,7 +13,7 @@ organizations:
     peers:
     - peer0.hospital${ORG}.com
     certificateAuthorities:
-    - ca.hospital${ORG}.com
+    - ca.hospital${ORG}
 peers:
   peer0.hospital${ORG}.com:
     url: grpcs://localhost:${P0PORT}
@@ -24,7 +24,7 @@ peers:
       ssl-target-name-override: peer0.hospital${ORG}.com
       hostnameOverride: peer0.hospital${ORG}.com
 certificateAuthorities:
-  ca.hospital${ORG}.com:
+  ca.hospital${ORG}:
     url: https://localhost:${CAPORT}
     caName: ca-hospital${ORG}
     tlsCACerts:

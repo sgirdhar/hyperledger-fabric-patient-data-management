@@ -2,7 +2,7 @@
  * @author Vineeth Bhat
  * @email vineeth.bhat@stud.fra-uas.de
  * @create date 31-12-2020 12:17:00
- * @modify date 05-01-2021 17:18:47
+ * @modify date 10-01-2021 13:10:16
  * @desc server side methods to implement application functionalities.
  */
 
@@ -59,10 +59,7 @@ async function connectNetwork(userObj) {
       discovery: { enabled: true, asLocalhost: true }
     })
     const network = await gateway.getNetwork(channelName)
-    userObj.wallet = wallet
-    userObj.gateway = gateway
-    userObj.network = network
-    return userObj
+    return network
   } catch (error) {
     console.error(`connectNetwork() --> Failed to connect to the fabric network: ${error}`)
     throw new Error(`Failed to connect to the fabric network: ${error}`)
@@ -103,16 +100,15 @@ async function registerDoctor(doctorObj) {
  */
 async function registerPatient(patientObj) {
   try {
-    registerUser(patientObj)
+    await registerUser(patientObj)
   
-    // ----------uncomment this section and add appropriate method name from smart contract in
-    //                                       submitTransaction() to add the patient data to the ledger ------------------
-    // patientObj = await connectNetwork(patientObj)
-    // const contract = patientObj.network.getContract(chaincodeName)
-    // console.log('\nregisterPatient()--> Submit Transaction: AddPatient, function adds the patient data to the ledger')
-    // await contract.submitTransaction('')
-    // console.log('\n Result: committed')
-    // disconnectNetowrk(patientObj)
+    const network = await connectNetwork(patientObj)
+    const contract = network.getContract(chaincodeName)
+    const string1 = JSON.stringify(patientObj)
+    console.log('\nregisterPatient()--> Submit Transaction: CreateRecord, function adds the patient data to the ledger')
+    console.log('\nregisterPatient()-->' + string1)
+    await contract.submitTransaction('CreateRecord', string1)
+    console.log('\n Result: committed')
     return 'Patient: ' + patientObj.id + ', successfully registered'
   } catch (error) {
     console.error(`\nregisterPatient() --> Failed to register patient ${patientObj.id}: ${error}`)
@@ -121,17 +117,37 @@ async function registerPatient(patientObj) {
 }
 
 /**
- * Method to update the patient record in the ledger using appropriate chanincode and method.
+ * Method to update the patient information (non-medical) in the ledger using appropriate chanincode and method.
  * @author Vineeth Bhat
- * @create date 04-01-2021
+ * @create date 09-01-2021
  * @param  {} userObj
  */
-async function updatePatientData(userObj) {
+async function updatePatientInfo(userObj) {
   try {
-    userObj = await connectNetwork(userObj)
-    const contract = userObj.network.getContract(chaincodeName)
+    const network = await connectNetwork(userObj)
+    const contract = network.getContract(chaincodeName)
     console.log('\n--> Submit Transaction: UpdateRecord, function updates patient record the ledger')
     await contract.submitTransaction('')
+    console.log('*** Result: committed')
+    return 'Record updated'
+  } catch (error) {
+    console.error(`updatePatientData() --> Failed to update the record: ${error}`)
+    throw new Error(`Failed to update the record: ${error}`)
+  }
+}
+
+/**
+ * Method to update the patient health record in the ledger using appropriate chanincode and method.
+ * @author Vineeth Bhat
+ * @create date 09-01-2021
+ * @param  {} userObj
+ */
+async function updatePatientHealthRecord(userObj) {
+  try {
+    const network = await connectNetwork(userObj)
+    const contract = network.getContract(chaincodeName)
+    console.log('\n--> Submit Transaction: UpdateRecord, function updates patient record the ledger')
+    await contract.submitTransaction('UpdateRecord', userObj)
     console.log('*** Result: committed')
     return 'Record updated'
   } catch (error) {
@@ -149,10 +165,16 @@ async function updatePatientData(userObj) {
  */
 async function readPatientData(userObj) {
   try {
-    userObj = await connectNetwork(userObj)
-    const contract = userObj.network.getContract(chaincodeName)
+    const network = await connectNetwork(userObj)
+    const contract = network.getContract(chaincodeName)
     console.log('\n--> Evaluate Transaction: ReadRecord, function reads a patient\'s record the ledger')
-    const result = await contract.evaluateTransaction('', '')
+    let result
+    if (userObj.role === 'Doctor') {
+      result = await contract.evaluateTransaction('ReadRecord', userObj)
+    } else if (userObj.role === 'Patinet') {
+      result = await contract.evaluateTransaction('patientReadRecord', userObj)
+    }
+   
     console.log(`*** Result: ${prettyJSONString(result.toString())}`)
     return result
   } catch (error) {
@@ -170,8 +192,8 @@ async function readPatientData(userObj) {
  */
 async function readAllPatientData(userObj) {
   try {
-    userObj = await connectNetwork(userObj)
-    const contract = userObj.network.getContract(chaincodeName)
+    const network = await connectNetwork(userObj)
+    const contract = network.getContract(chaincodeName)
     console.log('\n--> Evaluate Transaction: GetAllAssets, function returns all the current records from the ledger')
     const result = await contract.evaluateTransaction('')
     console.log(`*** Result: ${prettyJSONString(result.toString())}`)
@@ -184,20 +206,60 @@ async function readAllPatientData(userObj) {
 
 async function initLedger(userObj) {
   try {
-    userObj = await connectNetwork(userObj)
-    const contract = userObj.network.getContract(chaincodeName)
+    const network = await connectNetwork(userObj)
+    const contract = network.getContract(chaincodeName)
 
-    console.log('\n--> Submit Transaction: InitializePatient, function creates the initial set of assets on the ledger')
-    await contract.submitTransaction('InitializePatient')
+    console.log('\n--> Submit Transaction: InitPatientLedger, function creates the initial set of assets on the ledger')
+    await contract.submitTransaction('InitPatientLedger')
     console.log('*** Result: committed')
 
     console.log('\n--> Evaluate Transaction: GetAllAssets, function returns all the current assets on the ledger')
-    const result = await contract.evaluateTransaction('GetAllAssets')
+    const result = await contract.evaluateTransaction('GetAllRecords')
     console.log(`*** Result: ${prettyJSONString(result.toString())}`)
     return result
   } catch (error) {
     console.error(`Failed to retrieve contract: ${error}`)
     process.exit(1)
+  }
+}
+
+/**
+ * Method to grant access to doctor to view patient's medical records
+ * @author Vineeth Bhat
+ * @create date 09-01-2021
+ * @param  {} userObj
+ */
+async function grantAccess(userObj) {
+  try {
+    const network = await connectNetwork(userObj)
+    const contract = network.getContract(chaincodeName)
+    console.log('\n--> Submit Transaction: UpdateRecord, function grant access to the ledger')
+    await contract.submitTransaction('grantAccess', userObj)
+    console.log('*** Result: committed')
+    return 'Access Granted: ' + userObj.doctorId
+  } catch (error) {
+    console.error(`updatePatientData() --> Failed to update the record: ${error}`)
+    throw new Error(`Failed to update the record: ${error}`)
+  }
+}
+
+/**
+ * Method to revoke access to doctor to view patient's medical records
+ * @author Vineeth Bhat
+ * @create date 09-01-2021
+ * @param  {} userObj
+ */
+async function revokeAccess(userObj) {
+  try {
+    const network = await connectNetwork(userObj)
+    const contract = network.getContract(chaincodeName)
+    console.log('\n--> Submit Transaction: UpdateRecord, function revoke access to the ledger')
+    await contract.submitTransaction('revokeAccess', userObj)
+    console.log('*** Result: committed')
+    return 'Access Revoked: ' + userObj.doctorId
+  } catch (error) {
+    console.error(`updatePatientData() --> Failed to update the record: ${error}`)
+    throw new Error(`Failed to update the record: ${error}`)
   }
 }
 
@@ -207,7 +269,10 @@ module.exports = {
   initLedger,
   connectNetwork,
   disconnectNetowrk,
-  updatePatientData,
+  updatePatientHealthRecord,
   readPatientData,
-  readAllPatientData
+  readAllPatientData,
+  updatePatientInfo,
+  grantAccess,
+  revokeAccess
 }

@@ -6,15 +6,15 @@
 version: '2'
 
 volumes:
-  peer0.org3.example.com:
+  peer0.insurance1.com:
 
 networks:
   test:
 
 services:
 
-  peer0.org3.example.com:
-    container_name: peer0.org3.example.com
+  peer0.insurance1.com:
+    container_name: peer0.insurance1.com
     image: hyperledger/fabric-peer:$IMAGE_TAG
     environment:
       #Generic peer variables
@@ -31,28 +31,28 @@ services:
       - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
       - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
       # Peer specific variabes
-      - CORE_PEER_ID=peer0.org3.example.com
-      - CORE_PEER_ADDRESS=peer0.org3.example.com:11051
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:11051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.org3.example.com:11052
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:11052
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org3.example.com:11051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org3.example.com:11051
-      - CORE_PEER_LOCALMSPID=Org3MSP
+      - CORE_PEER_ID=peer0.insurance1.com
+      - CORE_PEER_ADDRESS=peer0.insurance1.com:13051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:13051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.insurance1.com:13052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:13052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.insurance1.com:13051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.insurance1.com:13051
+      - CORE_PEER_LOCALMSPID=Insurance1MSP
     volumes:
         - /var/run/:/host/var/run/
-        - ../../organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/msp:/etc/hyperledger/fabric/msp
-        - ../../organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls:/etc/hyperledger/fabric/tls
-        - peer0.org3.example.com:/var/hyperledger/production
+        - ../../organizations/peerOrganizations/insurance1.com/peers/peer0.insurance1.com/msp:/etc/hyperledger/fabric/msp
+        - ../../organizations/peerOrganizations/insurance1.com/peers/peer0.insurance1.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.insurance1.com:/var/hyperledger/production
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: peer node start
     ports:
-      - 11051:11051
+      - 13051:13051
     networks:
       - test
 
-  Org3cli:
-    container_name: Org3cli
+  Insurance1cli:
+    container_name: Insurance1cli
     image: hyperledger/fabric-tools:$IMAGE_TAG
     tty: true
     stdin_open: true
@@ -61,14 +61,14 @@ services:
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
       - FABRIC_LOGGING_SPEC=INFO
       #- FABRIC_LOGGING_SPEC=DEBUG
-      - CORE_PEER_ID=Org3cli
-      - CORE_PEER_ADDRESS=peer0.org3.example.com:11051
-      - CORE_PEER_LOCALMSPID=Org3MSP
+      - CORE_PEER_ID=Insurance1cli
+      - CORE_PEER_ADDRESS=peer0.insurance1.com:13051
+      - CORE_PEER_LOCALMSPID=Insurance1MSP
       - CORE_PEER_TLS_ENABLED=true
-      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/server.crt
-      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/server.key
-      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/ca.crt
-      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/org3.example.com/users/Admin@org3.example.com/msp
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/insurance1.com/peers/peer0.insurance1.com/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/insurance1.com/peers/peer0.insurance1.com/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/insurance1.com/peers/peer0.insurance1.com/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/insurance1.com/users/Admin@insurance1.com/msp
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: /bin/bash
     volumes:
@@ -77,6 +77,6 @@ services:
         - ../../organizations:/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations
         - ../../scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
     depends_on:
-      - peer0.org3.example.com
+      - peer0.insurance1.com
     networks:
       - test

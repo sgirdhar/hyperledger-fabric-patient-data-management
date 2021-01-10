@@ -2,7 +2,7 @@
  * @author Vineeth Bhat
  * @email vineeth.bhat@stud.fra-uas.de
  * @create date 31-12-2020 12:03:08
- * @modify date 05-01-2021 17:24:13
+ * @modify date 09-01-2021 12:41:34
  * @desc
  */
 
@@ -74,6 +74,7 @@ exports.buildCAClient = (FabricCAServices, ccp, caHostName) => {
   console.log(`Built a CA Client named ${caInfo.caName}`)
   return caClient
 }
+
 /**
  * Enroll admin to the organization
  * @author Vineeth Bhat

@@ -7,16 +7,16 @@ version: '2'
 
 services:
 
-  ca_org3:
+  ca_insurance1:
     image: hyperledger/fabric-ca:$IMAGE_TAG
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-      - FABRIC_CA_SERVER_CA_NAME=ca-org3
+      - FABRIC_CA_SERVER_CA_NAME=ca-insurance1
       - FABRIC_CA_SERVER_TLS_ENABLED=true
-      - FABRIC_CA_SERVER_PORT=11054
+      - FABRIC_CA_SERVER_PORT=12054
     ports:
-      - "11054:11054"
+      - "12054:12054"
     command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
     volumes:
-      - ../fabric-ca/org3:/etc/hyperledger/fabric-ca-server
-    container_name: ca_org3
+      - ../fabric-ca/insurance1:/etc/hyperledger/fabric-ca-server
+    container_name: ca_insurance1

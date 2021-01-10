@@ -40,7 +40,7 @@
 version: 1.2.0
 
 # Server's listening port (default: 7054)
-port: 11054
+port: 13054
 
 # Enables debug logging (default: false)
 debug: false
@@ -80,7 +80,7 @@ tls:
 #############################################################################
 ca:
   # Name of this CA
-  name: Org3CA
+  name: Insurance1CA
   # Key file (is only used to import a private key into BCCSP)
   keyfile:
   # Certificate file (default: ca-cert.pem)
@@ -301,16 +301,16 @@ signing:
 #     CA certificates though it can still issue end entity certificates.
 ###########################################################################
 csr:
-   cn: ca.org3.example.com
+   cn: ca.insurance1.com
    names:
       - C: US
         ST: "North Carolina"
         L: "Raleigh"
-        O: org3.example.com
+        O: hospital3.com
         OU:
    hosts:
      - localhost
-     - org3.example.com
+     - insurance1.com
    ca:
       expiry: 131400h
       pathlength: 1

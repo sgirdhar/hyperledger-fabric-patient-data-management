@@ -18,11 +18,11 @@ export VERBOSE=false
 # Print the usage message
 function printHelp () {
   echo "Usage: "
-  echo "  addOrg3.sh up|down|generate [-c <channel name>] [-t <timeout>] [-d <delay>] [-f <docker-compose-file>] [-s <dbtype>]"
-  echo "  addOrg3.sh -h|--help (print this message)"
+  echo "  addInsurance1Org.sh up|down|generate [-c <channel name>] [-t <timeout>] [-d <delay>] [-f <docker-compose-file>] [-s <dbtype>]"
+  echo "  addInsurance1Org.sh -h|--help (print this message)"
   echo "    <mode> - one of 'up', 'down', or 'generate'"
-  echo "      - 'up' - add hospital3 to the sample network. You need to bring up the test network and create a channel first."
-  echo "      - 'down' - bring down the test network and hospital3 nodes"
+  echo "      - 'up' - add insurance1 to the sample network. You need to bring up the test network and create a channel first."
+  echo "      - 'down' - bring down the test network and insurance1 nodes"
   echo "      - 'generate' - generate required certificates and org definition"
   echo "    -c <channel name> - test network channel name (defaults to \"mychannel\")"
   echo "    -ca <use CA> -  Use a CA to generate the crypto material"
@@ -36,14 +36,14 @@ function printHelp () {
   echo "Typically, one would first generate the required certificates and "
   echo "genesis block, then bring up the network. e.g.:"
   echo
-  echo "	addOrg3.sh generate"
-  echo "	addOrg3.sh up"
-  echo "	addOrg3.sh up -c mychannel -s couchdb"
-  echo "	addOrg3.sh down"
+  echo "	addInsurance1Org.sh generate"
+  echo "	addInsurance1Org.sh up"
+  echo "	addInsurance1Org.sh up -c mychannel -s couchdb"
+  echo "	addInsurance1Org.sh down"
   echo
   echo "Taking all defaults:"
-  echo "	addOrg3.sh up"
-  echo "	addOrg3.sh down"
+  echo "	addInsurance1Org.sh up"
+  echo "	addInsurance1Org.sh down"
 }
 
 # We use the cryptogen tool to generate the cryptographic material
@@ -51,7 +51,7 @@ function printHelp () {
 # be put in the organizations folder with org1 and org2
 
 # Create Organziation crypto material using cryptogen or CAs
-function generateOrg3() {
+function generateInsurance1() {
 
   # Create crypto material using cryptogen
   if [ "$CRYPTO" == "cryptogen" ]; then
@@ -67,11 +67,11 @@ function generateOrg3() {
     echo
 
     echo "##########################################################"
-    echo "############ Create Hospital3 Identities ######################"
+    echo "############ Create Insurance1 Identities ######################"
     echo "##########################################################"
 
     set -x
-    cryptogen generate --config=hospital3-crypto.yaml --output="../organizations"
+    cryptogen generate --config=insurance1-crypto.yaml --output="../organizations"
     res=$?
     { set +x; } 2>/dev/null
     if [ $res -ne 0 ]; then
@@ -98,62 +98,62 @@ function generateOrg3() {
     echo "##### Generate certificates using Fabric CA's ############"
     echo "##########################################################"
 
-    IMAGE_TAG=${CA_IMAGETAG} docker-compose -f $COMPOSE_FILE_CA_ORG3 up -d 2>&1
+    IMAGE_TAG=${CA_IMAGETAG} docker-compose -f $COMPOSE_FILE_CA_ORG4 up -d 2>&1
 
     . fabric-ca/registerEnroll.sh
 
     sleep 10
 
     echo "##########################################################"
-    echo "############ Create Hospital3 Identities ######################"
+    echo "############ Create Insurance1 Identities ######################"
     echo "##########################################################"
 
-    createHospital3
+    createInsurance1
 
   fi
 
   echo
-  echo "Generate CCP files for Hospital3"
+  echo "Generate CCP files for Insurance1"
   ./ccp-generate.sh
 }
 
 # Generate channel configuration transaction
-function generateOrg3Definition() {
+function generateInsurance1Definition() {
   which configtxgen
   if [ "$?" -ne 0 ]; then
     echo "configtxgen tool not found. exiting"
     exit 1
   fi
   echo "##########################################################"
-  echo "#######  Generating Hospital3 organization definition #########"
+  echo "#######  Generating Insurance1 organization definition #########"
   echo "##########################################################"
    export FABRIC_CFG_PATH=$PWD
    set -x
-   configtxgen -printOrg Hospital3MSP > ../organizations/peerOrganizations/hospital3.com/hospital3.json
+   configtxgen -printOrg Insurance1MSP > ../organizations/peerOrganizations/insurance1.com/insurance1.json
    res=$?
    { set +x; } 2>/dev/null
    if [ $res -ne 0 ]; then
-     echo "Failed to generate Hospital3 config material..."
+     echo "Failed to generate Insurance1 config material..."
      exit 1
    fi
   echo
 }
 
-function Org3Up () {
-  # start hospital3 nodes
+function InsuranceUp () {
+  # start insurance1 nodes
   if [ "${DATABASE}" == "couchdb" ]; then
-    IMAGE_TAG=${IMAGETAG} docker-compose -f $COMPOSE_FILE_ORG3 -f $COMPOSE_FILE_COUCH_ORG3 up -d 2>&1
+    IMAGE_TAG=${IMAGETAG} docker-compose -f $COMPOSE_FILE_ORG4 -f $COMPOSE_FILE_COUCH_ORG4 up -d 2>&1
   else
-    IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE_ORG3 up -d 2>&1
+    IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE_ORG4 up -d 2>&1
   fi
   if [ $? -ne 0 ]; then
-    echo "ERROR !!!! Unable to start Hospital3 network"
+    echo "ERROR !!!! Unable to start Insurance1 network"
     exit 1
   fi
 }
 
 # Generate the needed certificates, the genesis block and start the network.
-function addOrg3 () {
+function addInsurance1Org () {
 
   # If the test network is not up, abort
   if [ ! -d ../organizations/ordererOrganizations ]; then
@@ -164,24 +164,24 @@ function addOrg3 () {
   fi
 
   # generate artifacts if they don't exist
-  if [ ! -d "../organizations/peerOrganizations/hospital3.com" ]; then
-    generateOrg3
-    generateOrg3Definition
+  if [ ! -d "../organizations/peerOrganizations/insurance1.com" ]; then
+    generateInsurance1
+    generateInsurance1Definition
   fi
 
   CONTAINER_IDS=$(docker ps -a | awk '($2 ~ /fabric-tools/) {print $1}')
   if [ -z "$CONTAINER_IDS" -o "$CONTAINER_IDS" == " " ]; then
     echo "Bringing up network"
-    Org3Up
+    InsuranceUp
   fi
 
   # Use the CLI container to create the configuration transaction needed to add
-  # Hospital3 to the network
+  # Insurance1 to the network
   echo
   echo "###############################################################"
-  echo "####### Generate and submit config tx to add Hospital3 #############"
+  echo "####### Generate and submit config tx to add Insurance1 #############"
   echo "###############################################################"
-  docker exec Hospital3cli ./scripts/hospital3-scripts/step1org3.sh $CHANNEL_NAME $CLI_DELAY $CLI_TIMEOUT $VERBOSE
+  docker exec Insurance1cli ./scripts/insurance1-scripts/step1insurance1.sh $CHANNEL_NAME $CLI_DELAY $CLI_TIMEOUT $VERBOSE
   if [ $? -ne 0 ]; then
     echo "ERROR !!!! Unable to create config tx"
     exit 1
@@ -189,11 +189,11 @@ function addOrg3 () {
 
   echo
   echo "###############################################################"
-  echo "############### Have Hospital3 peers join network ##################"
+  echo "############### Have Insurance1 peers join network ##################"
   echo "###############################################################"
-  docker exec Hospital3cli ./scripts/hospital3-scripts/step2org3.sh $CHANNEL_NAME $CLI_DELAY $CLI_TIMEOUT $VERBOSE
+  docker exec Insurance1cli ./scripts/insurance1-scripts/step2insurance1.sh $CHANNEL_NAME $CLI_DELAY $CLI_TIMEOUT $VERBOSE
   if [ $? -ne 0 ]; then
-    echo "ERROR !!!! Unable to have Hospital3 peers join network"
+    echo "ERROR !!!! Unable to have Insurance1 peers join network"
     exit 1
   fi
 
@@ -222,11 +222,11 @@ CLI_DELAY=3
 # channel name defaults to "mychannel"
 CHANNEL_NAME="mychannel"
 # use this as the docker compose couch file
-COMPOSE_FILE_COUCH_ORG3=docker/docker-compose-couch-hospital3.yaml
+COMPOSE_FILE_COUCH_ORG4=docker/docker-compose-couch-insurance1.yaml
 # use this as the default docker-compose yaml definition
-COMPOSE_FILE_ORG3=docker/docker-compose-hospital3.yaml
+COMPOSE_FILE_ORG4=docker/docker-compose-insurance1.yaml
 # certificate authorities compose file
-COMPOSE_FILE_CA_ORG3=docker/docker-compose-ca-hospital3.yaml
+COMPOSE_FILE_CA_ORG4=docker/docker-compose-ca-insurance1.yaml
 # default image tag
 IMAGETAG="latest"
 # default ca image tag
@@ -299,12 +299,12 @@ done
 
 # Determine whether starting, stopping, restarting or generating for announce
 if [ "$MODE" == "up" ]; then
-  echo "Add Hospital3 to channel '${CHANNEL_NAME}' with '${CLI_TIMEOUT}' seconds and CLI delay of '${CLI_DELAY}' seconds and using database '${DATABASE}'"
+  echo "Add Insurance1 to channel '${CHANNEL_NAME}' with '${CLI_TIMEOUT}' seconds and CLI delay of '${CLI_DELAY}' seconds and using database '${DATABASE}'"
   echo
 elif [ "$MODE" == "down" ]; then
   EXPMODE="Stopping network"
 elif [ "$MODE" == "generate" ]; then
-  EXPMODE="Generating certs and organization definition for Hospital3"
+  EXPMODE="Generating certs and organization definition for Insurance1"
 else
   printHelp
   exit 1
@@ -312,12 +312,12 @@ fi
 
 #Create the network using docker compose
 if [ "${MODE}" == "up" ]; then
-  addOrg3
+  addInsurance1Org
 elif [ "${MODE}" == "down" ]; then ## Clear the network
   networkDown
 elif [ "${MODE}" == "generate" ]; then ## Generate Artifacts
-  generateOrg3
-  generateOrg3Definition
+  generateInsurance1
+  generateInsurance1Definition
 else
   printHelp
   exit 1

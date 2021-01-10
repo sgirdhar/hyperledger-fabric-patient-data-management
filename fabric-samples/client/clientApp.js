@@ -2,7 +2,7 @@
  * @author Vineeth Bhat
  * @email vineeth.bhat@stud.fra-uas.de
  * @create date 01-01-2021 11:29:51
- * @modify date 07-01-2021 00:51:20
+ * @modify date 10-01-2021 13:00:22
  * @desc route entries for the client to access the application functionalities.
  */
 
@@ -12,6 +12,8 @@ const cors = require('cors');
 const morgan = require('morgan');
 
 const app = require('../sdk/app.js')
+const Patient = require('../sdk/patient.js')
+const Doctor = require('../sdk/doctor.js')
 
 const clinetApp = express();
 clinetApp.use(morgan('combined'));
@@ -24,6 +26,47 @@ clinetApp.use(bodyParser.urlencoded({
 
 const credentials = require('./credentials.json')
 clinetApp.listen(5001, () => console.log('Backend server running on 5001'));
+
+/**
+ * Method to get password from the credentials file. 
+ * If the username doesnot exist then it will return empty string.
+ * @create date 07-01-2021
+ * @param  {} username
+ * @return password
+ */
+function fetchCredentials(username){
+	const cred = credentials[username]
+	if(cred){
+		return cred.password
+	}else {
+		return ""
+	}
+}
+
+/**
+ * Method to authenticate the access token generated.
+ * @author Vineeth Bhat
+ * @create date 07-01-2021
+ * @param  {} req
+ * @param  {} res
+ * @param  {} next
+ */
+const authenticateJWT = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+		const token = authHeader.split(' ')[1];
+	const password = fetchCredentials(req.body.username);
+    jwt.verify(token, password, (err, user) => {
+      if (err) {
+        return res.sendStatus(403);
+      }
+			req.user = user;
+      next();
+    });
+  } else {
+    res.sendStatus(401);
+  }
+};
 
 /**
  * Login to the application and the username and password is validated.
@@ -52,12 +95,13 @@ clinetApp.post('/login', (req, res) => {
  * @author Vineeth Bhat
  * @create date 30-12-2020
  * @param  {} '/registerDoctor'
+ * @param authenticateJWT
  * @param  {} async(req, res)
  * @param  {} res
  */
-clinetApp.post('/registerDoctor', authenticateJWT,  async (req, res) => {
-	const doctorObject = createUserObject(req.body)
-	const response = await app.registerDoctor(doctorObject);
+clinetApp.post('/admin/registerDoctor', authenticateJWT,  async (req, res) => {
+	const doctorObj = new Doctor(req.body)
+	const response = await app.registerDoctor(doctorObj);
 	if (response.error) {
     res.send(response.error);
   } else {
@@ -72,12 +116,13 @@ clinetApp.post('/registerDoctor', authenticateJWT,  async (req, res) => {
  * @author Vineeth Bhat
  * @create date 30-12-2020
  * @param  {} '/registerPatient'
+ * @param authenticateJWT
  * @param  {} async(req, res)
  * @param  {} res
  */
-clinetApp.post('/registerPatient', authenticateJWT, async (req, res) => {
-	const patientObject = createUserObject(req.body)
-	const response = await app.registerPatient(patientObject);
+clinetApp.post('/admin/registerPatient', authenticateJWT, async (req, res) => {
+	const patientObj = new Patient(req.body)
+	const response = await app.registerPatient(patientObj);
 	if (response.error) {
     res.send(response.error);
   } else {
@@ -86,20 +131,40 @@ clinetApp.post('/registerPatient', authenticateJWT, async (req, res) => {
 });
 
 /**
- * Invoke update ledger functionalities for updating patient data.
+ * Update patient's non-medical information.
  * @author Vineeth Bhat
  * @create date 04-01-2021
  * @param  {} '/updatePatientData'
+ * @param authenticateJWT
  * @param  {} async(req, res)
  * @param  {} res
  */
-clinetApp.post('/updatePatientData', authenticateJWT, async (req, res) => {
-	const userObj = createUserObject(req.body)
-	const response = await app.updatePatientData(userObj);
+clinetApp.post('/patinet/updatePatientInfo', authenticateJWT, async (req, res) => {
+	const patientObj = new Patient(req.body)
+	const response = await app.updatePatientData(patientObj)
 	if (response.error) {
-    res.send(response.error);
+    res.send(response.error)
   } else {
-    res.send(response);
+    res.send(response)
+  }
+});
+
+/**
+ * Update patient's medical information
+ * @author Vineeth Bhat
+ * @create date 09-01-2021
+ * @param  {} '/updatePatientHealthRecord'
+ * @param authenticateJWT
+ * @param  {} async(req, res)
+ * @param  {} res
+ */
+clinetApp.post('/doctor/updatePatientHealthRecord', authenticateJWT, async (req, res) => {
+	const patientObj = new Patient(req.body)
+	const response = await app.updatePatientHealthRecord(patientObj)
+	if (response.error) {
+    res.send(response.error)
+  } else {
+    res.send(response)
   }
 });
 
@@ -108,12 +173,13 @@ clinetApp.post('/updatePatientData', authenticateJWT, async (req, res) => {
  * @author Vineeth Bhat
  * @create date 04-01-2021
  * @param  {} '/readPatientData'
+ * @param authenticateJWT
  * @param  {} async(req, res)
  * @param  {} res
  */
 clinetApp.post('/readPatientData', authenticateJWT, async (req, res) => {
-	const userObj = createUserObject(req.body)
-	const response = await app.readPatientData(userObj);
+	const patientObj = new Patient(req.body)
+	const response = await app.readPatientData(patientObj);
 	if (response.error) {
     res.send(response.error);
   } else {
@@ -126,12 +192,13 @@ clinetApp.post('/readPatientData', authenticateJWT, async (req, res) => {
  * @author Vineeth Bhat
  * @create date 04-01-2021
  * @param  {} '/readAllPatientData'
+ * @param authenticateJWT
  * @param  {} async(req, res)
  * @param  {} res
  */
 clinetApp.post('/readAllPatientData', authenticateJWT, async (req, res) => {
-	const userObj = createUserObject(req.body)
-	const response = await app.readPatientData(userObj);
+	const patientObj = new Patient(req.body)
+	const response = await app.readPatientData(patientObj);
 	if (response.error) {
     res.send(response.error);
   } else {
@@ -140,8 +207,8 @@ clinetApp.post('/readAllPatientData', authenticateJWT, async (req, res) => {
 });
 
 clinetApp.post('/initialize', authenticateJWT, async (req, res) => {
-	const userObj = createUserObject(req.body)
-	const response = await app.initLedger(userObj);
+	const patientObj = new Patient(req.body)
+	const response = await app.initLedger(patientObj);
 	if (response.error) {
     res.send(response.error);
   } else {
@@ -150,59 +217,39 @@ clinetApp.post('/initialize', authenticateJWT, async (req, res) => {
 });
 
 /**
- * Method to create an object from request body
+ * Method to grant access to the doctor by the patient to view his medical record
  * @author Vineeth Bhat
- * @create date 04-01-2021
- * @param  {} requestBody
- * @return object
+ * @create date 09-01-2021
+ * @param  {} '/grantAccess'
+ * @param authenticateJWT
+ * @param  {} async(req, res)
+ * @param  {} res
  */
-function createUserObject(requestBody){
-	const userObject = {
-		id: requestBody.id,
-		password: requestBody.password,
-		org: requestBody.organization,
-		doctorId: requestBody.doctorId,
-		role: role
-	}
-	return userObject;
-}
+clinetApp.post('/patient/grantAccess', authenticateJWT, async (req, res) => {
+	const patientObj = new Patient(req.body)
+	const response = await app.grantAccess(patientObj);
+	if (response.error) {
+    res.send(response.error);
+  } else {
+    res.send(response);
+  }
+});
 
 /**
- * Method to get password from the credentials file. 
- * If the username doesnot exist then it will return empty string.
- * @create date 07-01-2021
- * @param  {} username
- * @return password
- */
-function fetchCredentials(username){
-	const cred = credentials[username]
-	if(cred){
-		return cred.password
-	}else {
-		return ""
-	}
-}
-/**
- * Method to authenticate the access token generated.
+ * Method to revoke access to the doctor by the patient.
  * @author Vineeth Bhat
- * @create date 07-01-2021
- * @param  {} req
+ * @create date 09-01-2021
+ * @param  {} '/grantAccess'
+ * @param authenticateJWT
+ * @param  {} async(req, res)
  * @param  {} res
- * @param  {} next
  */
-const authenticateJWT = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (authHeader) {
-		const token = authHeader.split(' ')[1];
-	const password = fetchCredentials(req.body.id);
-    jwt.verify(token, password, (err, user) => {
-      if (err) {
-        return res.sendStatus(403);
-      }
-			req.user = user;
-      next();
-    });
+clinetApp.post('/patient/revokeAccess', authenticateJWT, async (req, res) => {
+	const patientObj = new Patient(req.body)
+	const response = await app.revokeAccess(patientObj);
+	if (response.error) {
+    res.send(response.error);
   } else {
-    res.sendStatus(401);
+    res.send(response);
   }
-};
+});

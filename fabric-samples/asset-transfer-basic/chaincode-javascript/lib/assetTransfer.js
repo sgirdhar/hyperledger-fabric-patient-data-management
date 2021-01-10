@@ -51,88 +51,103 @@ class AssetTransfer extends Contract {
     async InitPatientLedger(ctx) {
         const records = [
             {
-                ID: 'EHR1',
                 PatientId: 'Patient1',
+                Address: 'A1',
+                Telephone: 741258,
+                HealthRecordId: 'EHR1',
                 Diagnosis: 'D1',
                 Medication: 'M1',
-                DoctorId: 'Doc1',
+                DoctorAuthorizationList: ['Doc1'],
+                OrganisationAuthorizationList: ['Hospital1'],
             },
             {
-                ID: 'EHR2',
                 PatientId: 'Patient2',
+                Address: 'A1',
+                Telephone: 745528,
+                HealthRecordId: 'EHR2',
                 Diagnosis: 'D2',
                 Medication: 'M2',
-                DoctorId: 'Doc2',
+                DoctorAuthorizationList: ['Doc2'],
+                OrganisationAuthorizationList: ['Hospital2'],
             },
             {
-                ID: 'EHR3',
                 PatientId: 'Patient3',
+                Address: 'A3',
+                Telephone: 744442,
+                HealthRecordId: 'EHR3',
                 Diagnosis: 'D3',
                 Medication: 'M3',
-                DoctorId: 'Doc1',
+                DoctorAuthorizationList: ['Doc1','Doc2'],
+                OrganisationAuthorizationList: ['Hospital1','Hospital2'],
             },
         ];
 
         for (const record of records) {
             // asset.docType = 'EHR';
-            await ctx.stub.putState(record.ID, Buffer.from(JSON.stringify(record)));
-            console.info(`Record ${record.ID} initialized`);
+            await ctx.stub.putState(record.PatientId, Buffer.from(JSON.stringify(record)));
+            console.info(`Record ${record.PatientId} initialized`);
         }
     }
 
     // CreateRecord issues a new record to the world state with given details.
-    async CreateRecord(ctx, id, patientId, diagnosis, medication, doctorId) {
+    async CreateRecord(ctx, patientId, address, telephone, healthRecordId, diagnosis, medication, doctorAuthorizationList, organisationAuthorizationList) {
         const record = {
-            ID: id,
             PatientId: patientId,
+            Address: address,
+            Telephone: parseInt(telephone,10),
+            HealthRecordId: healthRecordId,
             Diagnosis: diagnosis,
             Medication: medication,
-            DoctorId: doctorId,
+            DoctorAuthorizationList: doctorAuthorizationList,
+            OrganisationAuthorizationList: organisationAuthorizationList,
             // docType: 'EHR',
         };
-        ctx.stub.putState(id, Buffer.from(JSON.stringify(record)));
+        ctx.stub.putState(patientId, Buffer.from(JSON.stringify(record)));
         return JSON.stringify(record);
     }
 
-    // ReadRecord returns the record stored in the world state with given id.
-    async ReadRecord(ctx, id) {
-        const recordJSON = await ctx.stub.getState(id); // get the record from chaincode state
+    // ReadRecord returns the record stored in the world state with given patientId.
+    async ReadRecord(ctx, patientId) {
+        const recordJSON = await ctx.stub.getState(patientId); // get the record from chaincode state
         if (!recordJSON || recordJSON.length === 0) {
-            throw new Error(`The Record ${id} does not exist`);
+            throw new Error(`The Record ${patientId} does not exist`);
         }
         return recordJSON.toString();
     }
 
     // UpdateRecord updates an existing record in the world state with provided parameters.
-    async UpdateRecord(ctx, id, patientId, diagnosis, medication, doctorId) {
-        const exists = await this.RecordExists(ctx, id);
+    async UpdateRecord(ctx, patientId, address, telephone, healthRecordId, diagnosis, medication, doctorAuthorizationList, organisationAuthorizationList) {
+        const exists = await this.RecordExists(ctx, patientId);
         if (!exists) {
             throw new Error(`The record ${id} does not exist`);
         }
 
         // overwriting original record with new record
         const updatedRecord = {
-            ID: id,
             PatientId: patientId,
+            Address: address,
+            Telephone: parseInt(telephone,10),
+            HealthRecordId: healthRecordId,
             Diagnosis: diagnosis,
             Medication: medication,
-            DoctorId: doctorId,
+            DoctorAuthorizationList: doctorAuthorizationList,
+            OrganisationAuthorizationList: organisationAuthorizationList,
         };
-        return ctx.stub.putState(id, Buffer.from(JSON.stringify(updatedRecord)));
+        return ctx.stub.putState(patientId, Buffer.from(JSON.stringify(updatedRecord)));
     }
 
     // DeleteRecord deletes a given record from the world state.
-    async DeleteRecord(ctx, id) {
-        const exists = await this.RecordExists(ctx, id);
+    async DeleteRecord(ctx, patientId) {
+        const exists = await this.RecordExists(ctx, patientId);
         if (!exists) {
-            throw new Error(`The record ${id} does not exist`);
+            throw new Error(`The record ${patientId} does not exist`);
         }
-        return ctx.stub.deleteState(id);
+        return ctx.stub.deleteState(patientId);
     }
 
-    // RecordExists returns true when record with given ID exists in world state.
-    async RecordExists(ctx, id) {
-        const recordJSON = await ctx.stub.getState(id);
+    // RecordExists returns true when record with given PatientId exists in world state.
+    async RecordExists(ctx, patientId) {
+        const recordJSON = await ctx.stub.getState(patientId);
         return recordJSON && recordJSON.length > 0;
     }
 

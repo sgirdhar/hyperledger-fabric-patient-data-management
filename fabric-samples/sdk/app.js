@@ -2,7 +2,7 @@
  * @author Vineeth Bhat
  * @email vineeth.bhat@stud.fra-uas.de
  * @create date 31-12-2020 12:17:00
- * @modify date 10-01-2021 13:10:16
+ * @modify date 11-01-2021 01:11:56
  * @desc server side methods to implement application functionalities.
  */
 
@@ -77,6 +77,47 @@ function disconnectNetowrk(userObj) {
 }
 
 /**
+ * Method to submit transaction to ledger
+ * @author Vineeth Bhat
+ * @create date 10-01-2020
+ * @param  {} obj
+ */
+async function submitTransaction(funcName, obj) {
+  try {
+    const network = await connectNetwork(obj)
+    const contract = network.getContract(chaincodeName)
+    const stringObject = JSON.stringify(obj)
+    console.log(`\n submitTransaction()--> ${funcName}`)
+    const result = await contract.submitTransaction(funcName, stringObject)
+    console.log(`\n submitTransaction()--> Result: committed: ${funcName}`)
+    return result
+  } catch (error) {
+    throw new Error(`Failed to submit transaction ${funcName}`)
+  }
+}
+
+/**
+ * Method to evaluate transaction from ledger
+ * @author Vineeth Bhat
+ * @create date 10-01-2020
+ * @param  {} obj
+ */
+async function evaluateTransaction(funcName, obj) {
+  try {
+    const network = await connectNetwork(obj)
+    const contract = network.getContract(chaincodeName)
+    const stringObject = JSON.stringify(obj)
+    console.log(`\n evaluateTransaction()--> ${funcName}`)
+    const result = await contract.evaluateTransaction(funcName, stringObject)
+    console.log(`\n evaluateTransaction()--> Result: committed: ${funcName}`)
+    return result
+  } catch (error) {
+    throw new Error(`Failed to evaluate transaction ${funcName}`)
+  }
+}
+
+
+/**
  * Method to register the doctor to the organization by using registerUser().
  * @author Vineeth Bhat
  * @create date 31-12-2020
@@ -101,15 +142,8 @@ async function registerDoctor(doctorObj) {
 async function registerPatient(patientObj) {
   try {
     await registerUser(patientObj)
-  
-    const network = await connectNetwork(patientObj)
-    const contract = network.getContract(chaincodeName)
-    const string1 = JSON.stringify(patientObj)
-    console.log('\nregisterPatient()--> Submit Transaction: CreateRecord, function adds the patient data to the ledger')
-    console.log('\nregisterPatient()-->' + string1)
-    await contract.submitTransaction('CreateRecord', string1)
-    console.log('\n Result: committed')
-    return 'Patient: ' + patientObj.id + ', successfully registered'
+    const result = await submitTransaction('CreateRecord', patientObj)
+    return result
   } catch (error) {
     console.error(`\nregisterPatient() --> Failed to register patient ${patientObj.id}: ${error}`)
     throw new Error(`Failed to register patient ${patientObj.id}: ${error}`)
@@ -124,14 +158,10 @@ async function registerPatient(patientObj) {
  */
 async function updatePatientInfo(userObj) {
   try {
-    const network = await connectNetwork(userObj)
-    const contract = network.getContract(chaincodeName)
-    console.log('\n--> Submit Transaction: UpdateRecord, function updates patient record the ledger')
-    await contract.submitTransaction('')
-    console.log('*** Result: committed')
-    return 'Record updated'
+    const result = await submitTransaction('UpdatePatientInfo', userObj)
+    return result
   } catch (error) {
-    console.error(`updatePatientData() --> Failed to update the record: ${error}`)
+    console.error(`\n updatePatientData() --> Failed to update the record: ${error}`)
     throw new Error(`Failed to update the record: ${error}`)
   }
 }
@@ -144,12 +174,8 @@ async function updatePatientInfo(userObj) {
  */
 async function updatePatientHealthRecord(userObj) {
   try {
-    const network = await connectNetwork(userObj)
-    const contract = network.getContract(chaincodeName)
-    console.log('\n--> Submit Transaction: UpdateRecord, function updates patient record the ledger')
-    await contract.submitTransaction('UpdateRecord', userObj)
-    console.log('*** Result: committed')
-    return 'Record updated'
+    const result = await submitTransaction('UpdateRecord', userObj)
+    return result
   } catch (error) {
     console.error(`updatePatientData() --> Failed to update the record: ${error}`)
     throw new Error(`Failed to update the record: ${error}`)
@@ -165,17 +191,12 @@ async function updatePatientHealthRecord(userObj) {
  */
 async function readPatientData(userObj) {
   try {
-    const network = await connectNetwork(userObj)
-    const contract = network.getContract(chaincodeName)
-    console.log('\n--> Evaluate Transaction: ReadRecord, function reads a patient\'s record the ledger')
     let result
-    if (userObj.role === 'Doctor') {
-      result = await contract.evaluateTransaction('ReadRecord', userObj)
-    } else if (userObj.role === 'Patinet') {
-      result = await contract.evaluateTransaction('patientReadRecord', userObj)
+    if (userObj.role === 'doctor') {
+      result = await evaluateTransaction('DoctorReadRecord', userObj)
+    } else if (userObj.role === 'patient') {
+      result = await evaluateTransaction('PatientReadRecord', userObj)
     }
-   
-    console.log(`*** Result: ${prettyJSONString(result.toString())}`)
     return result
   } catch (error) {
     console.error(`readPatientData() --> Failed to read the record: ${error}`)
@@ -192,11 +213,7 @@ async function readPatientData(userObj) {
  */
 async function readAllPatientData(userObj) {
   try {
-    const network = await connectNetwork(userObj)
-    const contract = network.getContract(chaincodeName)
-    console.log('\n--> Evaluate Transaction: GetAllAssets, function returns all the current records from the ledger')
-    const result = await contract.evaluateTransaction('')
-    console.log(`*** Result: ${prettyJSONString(result.toString())}`)
+    const result = await evaluateTransaction('GetAllRecords', userObj)
     return result
   } catch (error) {
     console.error(`readAllPatientData() --> Failed to read all the current record: ${error}`)
@@ -231,12 +248,8 @@ async function initLedger(userObj) {
  */
 async function grantAccess(userObj) {
   try {
-    const network = await connectNetwork(userObj)
-    const contract = network.getContract(chaincodeName)
-    console.log('\n--> Submit Transaction: UpdateRecord, function grant access to the ledger')
-    await contract.submitTransaction('grantAccess', userObj)
-    console.log('*** Result: committed')
-    return 'Access Granted: ' + userObj.doctorId
+    const result = await submitTransaction('GrantAccess', userObj)
+    return result
   } catch (error) {
     console.error(`updatePatientData() --> Failed to update the record: ${error}`)
     throw new Error(`Failed to update the record: ${error}`)
@@ -251,12 +264,8 @@ async function grantAccess(userObj) {
  */
 async function revokeAccess(userObj) {
   try {
-    const network = await connectNetwork(userObj)
-    const contract = network.getContract(chaincodeName)
-    console.log('\n--> Submit Transaction: UpdateRecord, function revoke access to the ledger')
-    await contract.submitTransaction('revokeAccess', userObj)
-    console.log('*** Result: committed')
-    return 'Access Revoked: ' + userObj.doctorId
+    const result = await submitTransaction('RevokeAccess', userObj)
+    return result
   } catch (error) {
     console.error(`updatePatientData() --> Failed to update the record: ${error}`)
     throw new Error(`Failed to update the record: ${error}`)

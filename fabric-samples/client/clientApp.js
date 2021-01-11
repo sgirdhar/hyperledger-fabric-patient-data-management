@@ -2,7 +2,7 @@
  * @author Vineeth Bhat
  * @email vineeth.bhat@stud.fra-uas.de
  * @create date 01-01-2021 11:29:51
- * @modify date 10-01-2021 13:00:22
+ * @modify date 11-01-2021 01:35:13
  * @desc route entries for the client to access the application functionalities.
  */
 
@@ -12,8 +12,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 
 const app = require('../sdk/app.js')
-const Patient = require('../sdk/patient.js')
-const Doctor = require('../sdk/doctor.js')
+const User = require('../sdk/user.js')
 
 const clinetApp = express();
 clinetApp.use(morgan('combined'));
@@ -99,8 +98,8 @@ clinetApp.post('/login', (req, res) => {
  * @param  {} async(req, res)
  * @param  {} res
  */
-clinetApp.post('/admin/registerDoctor', authenticateJWT,  async (req, res) => {
-	const doctorObj = new Doctor(req.body)
+clinetApp.post('/registerDoctor', authenticateJWT,  async (req, res) => {
+	const doctorObj = new User(req.body)
 	const response = await app.registerDoctor(doctorObj);
 	if (response.error) {
     res.send(response.error);
@@ -120,9 +119,10 @@ clinetApp.post('/admin/registerDoctor', authenticateJWT,  async (req, res) => {
  * @param  {} async(req, res)
  * @param  {} res
  */
-clinetApp.post('/admin/registerPatient', authenticateJWT, async (req, res) => {
-	const patientObj = new Patient(req.body)
+clinetApp.post('/registerPatient', authenticateJWT, async (req, res) => {
+	const patientObj = new User(req.body)
 	const response = await app.registerPatient(patientObj);
+	console.log(response);
 	if (response.error) {
     res.send(response.error);
   } else {
@@ -139,13 +139,13 @@ clinetApp.post('/admin/registerPatient', authenticateJWT, async (req, res) => {
  * @param  {} async(req, res)
  * @param  {} res
  */
-clinetApp.post('/patinet/updatePatientInfo', authenticateJWT, async (req, res) => {
-	const patientObj = new Patient(req.body)
-	const response = await app.updatePatientData(patientObj)
+clinetApp.post('/updatePatientInfo', authenticateJWT, async (req, res) => {
+	const patientObj = new User(req.body)
+	const response = await app.updatePatientInfo(patientObj)
 	if (response.error) {
-    res.send(response.error)
+    res.send(response.error);
   } else {
-    res.send(response)
+    res.send(response);
   }
 });
 
@@ -158,8 +158,8 @@ clinetApp.post('/patinet/updatePatientInfo', authenticateJWT, async (req, res) =
  * @param  {} async(req, res)
  * @param  {} res
  */
-clinetApp.post('/doctor/updatePatientHealthRecord', authenticateJWT, async (req, res) => {
-	const patientObj = new Patient(req.body)
+clinetApp.post('/updatePatientHealthRecord', authenticateJWT, async (req, res) => {
+	const patientObj = new User(req.body)
 	const response = await app.updatePatientHealthRecord(patientObj)
 	if (response.error) {
     res.send(response.error)
@@ -178,7 +178,7 @@ clinetApp.post('/doctor/updatePatientHealthRecord', authenticateJWT, async (req,
  * @param  {} res
  */
 clinetApp.post('/readPatientData', authenticateJWT, async (req, res) => {
-	const patientObj = new Patient(req.body)
+	const patientObj = new User(req.body)
 	const response = await app.readPatientData(patientObj);
 	if (response.error) {
     res.send(response.error);
@@ -186,6 +186,7 @@ clinetApp.post('/readPatientData', authenticateJWT, async (req, res) => {
     res.send(response);
   }
 });
+
 
 /**
  * Route to invoke the method to read a all the data of all patients' from the ledger.
@@ -197,8 +198,8 @@ clinetApp.post('/readPatientData', authenticateJWT, async (req, res) => {
  * @param  {} res
  */
 clinetApp.post('/readAllPatientData', authenticateJWT, async (req, res) => {
-	const patientObj = new Patient(req.body)
-	const response = await app.readPatientData(patientObj);
+	const patientObj = new User(req.body)
+	const response = await app.readAllPatientData(patientObj);
 	if (response.error) {
     res.send(response.error);
   } else {
@@ -207,7 +208,7 @@ clinetApp.post('/readAllPatientData', authenticateJWT, async (req, res) => {
 });
 
 clinetApp.post('/initialize', authenticateJWT, async (req, res) => {
-	const patientObj = new Patient(req.body)
+	const patientObj = new User(req.body)
 	const response = await app.initLedger(patientObj);
 	if (response.error) {
     res.send(response.error);
@@ -225,8 +226,8 @@ clinetApp.post('/initialize', authenticateJWT, async (req, res) => {
  * @param  {} async(req, res)
  * @param  {} res
  */
-clinetApp.post('/patient/grantAccess', authenticateJWT, async (req, res) => {
-	const patientObj = new Patient(req.body)
+clinetApp.post('/grantAccess', authenticateJWT, async (req, res) => {
+	const patientObj = new User(req.body)
 	const response = await app.grantAccess(patientObj);
 	if (response.error) {
     res.send(response.error);
@@ -244,8 +245,8 @@ clinetApp.post('/patient/grantAccess', authenticateJWT, async (req, res) => {
  * @param  {} async(req, res)
  * @param  {} res
  */
-clinetApp.post('/patient/revokeAccess', authenticateJWT, async (req, res) => {
-	const patientObj = new Patient(req.body)
+clinetApp.post('/revokeAccess', authenticateJWT, async (req, res) => {
+	const patientObj = new User(req.body)
 	const response = await app.revokeAccess(patientObj);
 	if (response.error) {
     res.send(response.error);

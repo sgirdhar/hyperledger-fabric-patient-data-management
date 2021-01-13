@@ -256,6 +256,8 @@ class AssetTransfer extends Contract {
 
     /**
      * Checking authrization to read/write record
+     * @author Vineeth Bhat
+     * @create date 09-01-2021
      * @param  {} ctx
      * @param  {} userObj
      * @returns recordJSON
@@ -268,6 +270,8 @@ class AssetTransfer extends Contract {
 
     /**
      * Method to read patient's record. Accessible only for patient
+     * @author Vineeth Bhat
+     * @create date 09-01-2021
      * @param  {} ctx
      * @param  {} userObj
      */

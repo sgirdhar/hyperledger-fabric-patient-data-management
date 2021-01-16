@@ -12,7 +12,7 @@ async function main() {
     const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'))
 
     // Create a new CA client for interacting with the CA.
-    const caInfo = ccp.certificateAuthorities['ca.hospital2.com']
+    const caInfo = ccp.certificateAuthorities['ca.hospital2']
     const caTLSCACerts = caInfo.tlsCACerts.pem
     const ca = new FabricCAServices(caInfo.url, { trustedRoots: caTLSCACerts, verify: false }, caInfo.caName)
 
@@ -24,12 +24,12 @@ async function main() {
     // Check to see if we've already enrolled the admin user.
     const identity = await wallet.get('admin')
     if (identity) {
-      console.log('An identity for the admin user "admin" already exists in the wallet')
+      console.log('An identity for the admin user "admin2" already exists in the wallet')
       return
     }
 
     // Enroll the admin user, and import the new identity into the wallet.
-    const enrollment = await ca.enroll({ enrollmentID: 'admin', enrollmentSecret: 'adminpw' })
+    const enrollment = await ca.enroll({ enrollmentID: 'admin2', enrollmentSecret: 'adminpw' })
     const x509Identity = {
       credentials: {
         certificate: enrollment.certificate,
@@ -38,10 +38,10 @@ async function main() {
       mspId: 'Hospital2MSP',
       type: 'X.509'
     }
-    await wallet.put('admin', x509Identity)
-    console.log('Successfully enrolled admin user "admin" and imported it into the wallet')
+    await wallet.put('admin2', x509Identity)
+    console.log('Successfully enrolled admin user "admin2" and imported it into the wallet')
   } catch (error) {
-    console.error(`Failed to enroll admin user "admin": ${error}`)
+    console.error(`Failed to enroll admin user "admin2": ${error}`)
     process.exit(1)
   }
 }

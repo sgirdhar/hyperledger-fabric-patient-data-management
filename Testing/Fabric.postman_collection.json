@@ -1,0 +1,1355 @@
+{
+	"info": {
+		"_postman_id": "84361b40-3c25-48c4-8cd2-dd3a26c43578",
+		"name": "Fabric",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Admin Login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBhdGllbnQyIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjEwMzA2MjUyfQ.FMvE3ihiYxm2rq83tNsqItu8Y7ig-P4gdAeyYkoDvuM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "adminpw",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "patientId",
+							"value": "patient2",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "patient2",
+							"type": "text"
+						},
+						{
+							"key": "doctorId",
+							"value": "doctor1",
+							"type": "text"
+						},
+						{
+							"key": "org",
+							"value": "Hospital1",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "eee111",
+							"type": "text"
+						},
+						{
+							"key": "tel",
+							"value": "12313",
+							"type": "text"
+						},
+						{
+							"key": "diagnosis",
+							"value": "aa",
+							"type": "text"
+						},
+						{
+							"key": "medication",
+							"value": "a",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5001/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Doctor",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjEwMzA5MDU5fQ.ow39KKd6oz7A-Bkv2L7JJnLoSNponvCNmeVaGY0Ku0w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "adminpw",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "patientId",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "doctor1",
+							"type": "text"
+						},
+						{
+							"key": "doctorId",
+							"value": "doctor1",
+							"type": "text"
+						},
+						{
+							"key": "org",
+							"value": "Hospital1",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "eee111",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "tel",
+							"value": "12313",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "diagnosis",
+							"value": "aa",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "medication",
+							"value": "a",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5001/registerDoctor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"registerDoctor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Patient",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjEwMzA5MDU5fQ.ow39KKd6oz7A-Bkv2L7JJnLoSNponvCNmeVaGY0Ku0w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "adminpw",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "patientId",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "doctorId",
+							"value": "doctor1",
+							"type": "text"
+						},
+						{
+							"key": "org",
+							"value": "Hospital1",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "eee111",
+							"type": "text"
+						},
+						{
+							"key": "tel",
+							"value": "12313",
+							"type": "text"
+						},
+						{
+							"key": "diagnosis",
+							"value": "aa",
+							"type": "text"
+						},
+						{
+							"key": "medication",
+							"value": "a",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5001/registerPatient",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"registerPatient"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Patient",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBhdGllbnQxIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjEwMzA5NDI1fQ.yfzPXxIIlOvWL68uhpPhxZKolwuM3FlwZsHD6H1-rOw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "patient",
+							"type": "text"
+						},
+						{
+							"key": "patientId",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "doctorId",
+							"value": "doctor1",
+							"type": "text"
+						},
+						{
+							"key": "org",
+							"value": "Hospital1",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "eee111",
+							"type": "text"
+						},
+						{
+							"key": "tel",
+							"value": "12313",
+							"type": "text"
+						},
+						{
+							"key": "diagnosis",
+							"value": "aa",
+							"type": "text"
+						},
+						{
+							"key": "medication",
+							"value": "a",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5001/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"login"
+					]
+				},
+				"description": "Modify the personal information. Only non-medical records will be allowed to modify for patient."
+			},
+			"response": []
+		},
+		{
+			"name": "Update Patient Personal Info",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBhdGllbnQxIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjEwMzA5NTc0fQ.KEKgBvlRCy0Y1yZY1etBS6EWpgqRFd_tFwJyrtDl5IE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "patient",
+							"type": "text"
+						},
+						{
+							"key": "patientId",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "doctorId",
+							"value": "doctor1",
+							"type": "text"
+						},
+						{
+							"key": "org",
+							"value": "Hospital1",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "xxxxxxx",
+							"type": "text"
+						},
+						{
+							"key": "tel",
+							"value": "12313",
+							"type": "text"
+						},
+						{
+							"key": "diagnosis",
+							"value": "aa",
+							"type": "text"
+						},
+						{
+							"key": "medication",
+							"value": "a",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5001/updatePatientInfo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"updatePatientInfo"
+					]
+				},
+				"description": "Modify the personal information. Only non-medical records will be allowed to modify for patient"
+			},
+			"response": []
+		},
+		{
+			"name": "Doctor Login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRvY3RvcjEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MTAzMDk4ODJ9.IxBrRp5h_e3MSBEZSyPKB-0fJA2xeikiRffR5SftFdM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "doctor1",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "doctor1",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "doctor",
+							"type": "text"
+						},
+						{
+							"key": "patientId",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "doctor1",
+							"type": "text"
+						},
+						{
+							"key": "doctorId",
+							"value": "doctor1",
+							"type": "text"
+						},
+						{
+							"key": "org",
+							"value": "Hospital1",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "xxxxxxx",
+							"type": "text"
+						},
+						{
+							"key": "tel",
+							"value": "12313",
+							"type": "text"
+						},
+						{
+							"key": "diagnosis",
+							"value": "aa",
+							"type": "text"
+						},
+						{
+							"key": "medication",
+							"value": "a",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5001/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"login"
+					]
+				},
+				"description": "To get the access token for doctor login"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Health Record",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRvY3RvcjEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MTAzMDk4ODJ9.IxBrRp5h_e3MSBEZSyPKB-0fJA2xeikiRffR5SftFdM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "doctor1",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "doctor1",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "doctor",
+							"type": "text"
+						},
+						{
+							"key": "patientId",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "doctor1",
+							"type": "text"
+						},
+						{
+							"key": "doctorId",
+							"value": "doctor1",
+							"type": "text"
+						},
+						{
+							"key": "org",
+							"value": "Hospital1",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "xxxxxxx",
+							"type": "text"
+						},
+						{
+							"key": "tel",
+							"value": "12313",
+							"type": "text"
+						},
+						{
+							"key": "diagnosis",
+							"value": "zzzzzzz",
+							"type": "text"
+						},
+						{
+							"key": "medication",
+							"value": "a",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5001/updatePatientHealthRecord",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"updatePatientHealthRecord"
+					]
+				},
+				"description": "Doctor is only allowed to update the medical data"
+			},
+			"response": []
+		},
+		{
+			"name": "Read Patient Data by Doctor",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRvY3RvcjEiLCJyb2xlIjoiZG9jdG9yIiwiaWF0IjoxNjEwMzIwNDExfQ.CmHBHD7m31zEgidp_wSX1jbM_9e_h2Wd-Ff5rFsugOQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "doctor1",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "doctor1",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "doctor",
+							"type": "text"
+						},
+						{
+							"key": "patientId",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "doctor1",
+							"type": "text"
+						},
+						{
+							"key": "doctorId",
+							"value": "doctor1",
+							"type": "text"
+						},
+						{
+							"key": "org",
+							"value": "Hospital1",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "xxxxxxx",
+							"type": "text"
+						},
+						{
+							"key": "tel",
+							"value": "12313",
+							"type": "text"
+						},
+						{
+							"key": "diagnosis",
+							"value": "zzzzzzz",
+							"type": "text"
+						},
+						{
+							"key": "medication",
+							"value": "a",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5001/readPatientData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"readPatientData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Doctor2",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjEwMzEyNjY5fQ.qiQAy9iKCoy-nXBCVtAk0F43dTuoG6jFmj3aHxILeYU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "adminpw",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "patientId",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "doctor2",
+							"type": "text"
+						},
+						{
+							"key": "doctorId",
+							"value": "doctor2",
+							"type": "text"
+						},
+						{
+							"key": "org",
+							"value": "Hospital1",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "eee111",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "tel",
+							"value": "12313",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "diagnosis",
+							"value": "aa",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "medication",
+							"value": "a",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5001/registerDoctor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"registerDoctor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Doctor2 Login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRvY3RvcjEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MTAzMDk4ODJ9.IxBrRp5h_e3MSBEZSyPKB-0fJA2xeikiRffR5SftFdM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "doctor2",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "doctor2",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "doctor",
+							"type": "text"
+						},
+						{
+							"key": "patientId",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "doctor2",
+							"type": "text"
+						},
+						{
+							"key": "doctorId",
+							"value": "doctor2",
+							"type": "text"
+						},
+						{
+							"key": "org",
+							"value": "Hospital1",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "xxxxxxx",
+							"type": "text"
+						},
+						{
+							"key": "tel",
+							"value": "12313",
+							"type": "text"
+						},
+						{
+							"key": "diagnosis",
+							"value": "aa",
+							"type": "text"
+						},
+						{
+							"key": "medication",
+							"value": "a",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5001/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Patient Data by Doctor2",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRvY3RvcjIiLCJyb2xlIjoiZG9jdG9yIiwiaWF0IjoxNjEwMzEyNzU1fQ.J02pDBth9kaqfKJ_iysaoZwDmP1XLf6QPlDusBbCxoo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "doctor2",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "doctor2",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "doctor",
+							"type": "text"
+						},
+						{
+							"key": "patientId",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "doctor2",
+							"type": "text"
+						},
+						{
+							"key": "doctorId",
+							"value": "doctor2",
+							"type": "text"
+						},
+						{
+							"key": "org",
+							"value": "Hospital1",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "xxxxxxx",
+							"type": "text"
+						},
+						{
+							"key": "tel",
+							"value": "12313",
+							"type": "text"
+						},
+						{
+							"key": "diagnosis",
+							"value": "zzzzzzz",
+							"type": "text"
+						},
+						{
+							"key": "medication",
+							"value": "a",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5001/readPatientData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"readPatientData"
+					]
+				},
+				"description": "Access is not granted as the doctor 2 is not available in authorization list"
+			},
+			"response": []
+		},
+		{
+			"name": "Register Patient2",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjEwMzIyNTc5fQ.fAB0fsmVEiFN7EsosK5AyJZ7nfGzW3zjHa6mK60NhI8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "adminpw",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "admin",
+							"type": "text"
+						},
+						{
+							"key": "patientId",
+							"value": "patient2",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "patient2",
+							"type": "text"
+						},
+						{
+							"key": "doctorId",
+							"value": "doctor2",
+							"type": "text"
+						},
+						{
+							"key": "org",
+							"value": "Hospital1",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "eee111",
+							"type": "text"
+						},
+						{
+							"key": "tel",
+							"value": "12313",
+							"type": "text"
+						},
+						{
+							"key": "diagnosis",
+							"value": "aa",
+							"type": "text"
+						},
+						{
+							"key": "medication",
+							"value": "a",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5001/registerPatient",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"registerPatient"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Grant Access Patient1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBhdGllbnQxIiwicm9sZSI6InBhdGllbnQiLCJpYXQiOjE2MTAzMjI3NDF9.GfslrE-oVRFdYPzb0Q_vDNzrtZ4Tp404ZNTZoJc3scM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "patient",
+							"type": "text"
+						},
+						{
+							"key": "patientId",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "doctorId",
+							"value": "doctor2",
+							"type": "text"
+						},
+						{
+							"key": "org",
+							"value": "Hospital1",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "eee111",
+							"type": "text"
+						},
+						{
+							"key": "tel",
+							"value": "12313",
+							"type": "text"
+						},
+						{
+							"key": "diagnosis",
+							"value": "aa",
+							"type": "text"
+						},
+						{
+							"key": "medication",
+							"value": "a",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5001/grantAccess",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"grantAccess"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Revoke Access Patient1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBhdGllbnQxIiwicm9sZSI6InBhdGllbnQiLCJpYXQiOjE2MTAzMjI3NDF9.GfslrE-oVRFdYPzb0Q_vDNzrtZ4Tp404ZNTZoJc3scM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "patient",
+							"type": "text"
+						},
+						{
+							"key": "patientId",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "doctorId",
+							"value": "doctor1",
+							"type": "text"
+						},
+						{
+							"key": "org",
+							"value": "Hospital1",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "eee111",
+							"type": "text"
+						},
+						{
+							"key": "tel",
+							"value": "12313",
+							"type": "text"
+						},
+						{
+							"key": "diagnosis",
+							"value": "aa",
+							"type": "text"
+						},
+						{
+							"key": "medication",
+							"value": "a",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5001/revokeAccess",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"revokeAccess"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Patient Data by Patient",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBhdGllbnQxIiwicm9sZSI6InBhdGllbnQiLCJpYXQiOjE2MTAzMjQ5ODB9.w2_QBQlodTsmV0omZQx8m_-ox5DryR4h9gt2hLpaRtk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "patient",
+							"type": "text"
+						},
+						{
+							"key": "patientId",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "patient1",
+							"type": "text"
+						},
+						{
+							"key": "doctorId",
+							"value": "doctor1",
+							"type": "text"
+						},
+						{
+							"key": "org",
+							"value": "Hospital1",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "xxxxxxx",
+							"type": "text"
+						},
+						{
+							"key": "tel",
+							"value": "12313",
+							"type": "text"
+						},
+						{
+							"key": "diagnosis",
+							"value": "zzzzzzz",
+							"type": "text"
+						},
+						{
+							"key": "medication",
+							"value": "a",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5001/readPatientData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"readPatientData"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,65 @@
+<div class = 'row m-0 w-100'>
+    
+    <div class = 'col-md-4 offset-4 mt-5' *ngIf = '!this.isLogin'>
+        <h4>Register</h4>
+        <form #myform = "ngForm" enctype="application/json" (ngSubmit) = "onSubmit(myform)" >
+            <div class="form-group" class="input">
+                <label for="role" > Role:</label> 
+               <span> 
+                   <select class="form-control" type = "json" name ='role'  ngModel>  
+                       <option selected> patient</option>
+                   </select>
+                  
+               </span>
+            </div>
+            <div class = 'form-group' class="input">
+                <label for="username" > Username:</label> 
+                <span><input class = 'form-control'  name = 'username'  placeholder = "Username" ngModel></span>
+            </div>
+            <div class = 'form-group' class="input">
+                <label for="Password" > Password:</label> 
+                <span><input class = 'form-control' type = "password" name = "password" placeholder = "Password" ngModel></span>
+            </div>
+            <div class = 'form-group' class="input">
+                <label for="patientId" > PatientId:</label> 
+               <span><input class = 'form-control' type = "text" name = "patientId" placeholder = "Patient Id" ngModel></span>
+            </div>
+       
+            <div class = 'form-group' class="input">
+                <label for="id" > Id:</label> 
+               <span><input class = 'form-control' type = "text" name = "id" placeholder = "Id" ngModel></span>
+            </div>
+            <div class = 'form-group' class="input">
+                <label for="docrtorId" > Doctor Id:</label> 
+               <span><input class = 'form-control' type = "text" name = "doctorId" placeholder = "Docrtor Id" ngModel></span>
+            </div>
+             <div class = 'form-group' class="input">
+                <label for="org" > Organisation:</label>
+               <span><input class = 'form-control' type = "text" name = "org" placeholder = "Organisation" ngModel></span>
+            </div>
+            <div class = 'form-group' class="input">
+                <label for="address" > Address:</label>
+                <span><input class = 'form-control' type = "" name = "address" placeholder = "Address" ngModel></span>
+            </div>
+            <div class = 'form-group' class="input">
+                <label for="tel" > Telephone:</label>
+               <span> <input class = 'form-control' type = "text" name = "tel" placeholder = "Telephone" ngModel></span>
+            </div>
+            <div class = 'form-group' class="input">
+                <label for="diagnosis" > Diagnosis:</label>
+                <span><input class = 'form-control' type = "text" name = "diagnosis" placeholder = "Diagnosis" ngModel></span>
+            </div>
+            <div class = 'form-group' class="input">
+                <label for="medication" > Medication:</label>
+                <span><input class = 'form-control' type = "text" name = "medication" placeholder = "Medication" ngModel></span>
+            </div>
+            <div class="input">
+            <input class= 'btn btn-outline-info' type = "submit" name = "Register" value = "register">
+            </div>
+        </form>
+    
+    </div>
+    <div class = 'col-md-4 offset-4 mt-5' *ngIf = 'this.isLogin'>
+        <h5>You are logged in</h5>
+    </div>
+</div>

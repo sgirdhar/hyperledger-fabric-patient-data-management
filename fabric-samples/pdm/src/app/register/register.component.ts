@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.isUserLogin() ;
+    this.isUserLogin() ;
   }
 
   onSubmit(form: NgForm) {
@@ -40,10 +40,10 @@ export class RegisterComponent implements OnInit {
       this.errorMessage = err['error'].message;
     });
   }
-  // isUserLogin(){
-  //   if(this._auth.getToken() != null){
-  //     this.isLogin = true;
-  //   }
+  isUserLogin(){
+    if(this._auth.getToken() != null){
+      this.isLogin = true;
+    }
   }
 
-
+}

@@ -1,12 +1,15 @@
 <div class = 'row m-0 w-100'>
     
     <div class = 'col-md-4 offset-4 mt-5' *ngIf = '!this.isLogin'>
+        <h5> Please Log in as admin</h5>
+    </div>    
+    <div class = 'col-md-4 offset-4 mt-5' *ngIf = 'this.isLogin'>
         <h4>Register</h4>
-        <form #myform = "ngForm" enctype="application/json" (ngSubmit) = "onSubmit(myform)" >
+        <form #myform = "ngForm" enctype="multipart/form-data" (ngSubmit) = "onSubmit(myform)" *ngIf = 'this.isLogin' >
             <div class="form-group" class="input">
                 <label for="role" > Role:</label> 
                <span> 
-                   <select class="form-control" type = "json" name ='role'  ngModel>  
+                   <select class="form-control"  name ='role'  ngModel>  
                        <option selected> patient</option>
                    </select>
                   
@@ -58,8 +61,5 @@
             </div>
         </form>
     
-    </div>
-    <div class = 'col-md-4 offset-4 mt-5' *ngIf = 'this.isLogin'>
-        <h5>You are logged in</h5>
     </div>
 </div>

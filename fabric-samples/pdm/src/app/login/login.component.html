@@ -1,11 +1,12 @@
 <div class = 'row m-0 w-100'>
-    <div class = 'col-md-4 offset-4 mt-5' *ngIf = '!this.isLogin'><h4>Login</h4>
+    <div class = 'col-md-4 offset-4 mt-5' *ngIf = '!this.isLogin'>
+        <h4>Login</h4>
         <form #myform = "ngForm" (ngSubmit) = "onSubmit(myform)" >
             <div class = 'form-group'>
-                <input class = 'form-control'  name = "username" placeholder = "Username" ngModel>
+                <input class = 'form-control' type= "text" name = "username" placeholder = "Username" ngModel>
             </div>
             <div class = 'form-group'>
-                <input class = 'form-control'  name = "password" placeholder = "Password" ngModel>
+                <input class = 'form-control'  type = "password" name = "password" placeholder = "Password" ngModel>
             </div><input class= 'btn btn-outline-info' type = "submit" value = "Login">
         </form>
     </div>

@@ -1,7 +1,7 @@
 <div class = 'row m-0 w-100'>
-    <div class = 'col-md-4 offset-4 mt-5' *ngIf = '!this.isLogin'>
+    <div class = 'col-md-4 offset-4 mt-5' *ngIf = '!this.isLogin '>
         <h4>Login</h4>
-        <form #myform = "ngForm" (ngSubmit) = "onSubmit(myform)" >
+        <form #myform = "ngForm" enctype="application/x-www-form-urlencoded" (ngSubmit) = "onSubmit(myform)" >
             <div class = 'form-group'>
                 <input class = 'form-control' type= "text" name = "username" placeholder = "Username" ngModel>
             </div>

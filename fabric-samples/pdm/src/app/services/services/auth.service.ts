@@ -16,9 +16,9 @@ export class AuthService {
   
   constructor(private http : HttpClient) { }
   
-  // getUserDetails() {
-  //   return localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null;
-  // }
+  getUserDetails() {
+  return localStorage.getItem('userData');
+  }
     
   setDataInLocalStorage(variableName : string, data : string) {
     localStorage.setItem(variableName, data);

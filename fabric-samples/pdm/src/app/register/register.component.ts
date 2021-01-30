@@ -1,3 +1,4 @@
+import { stringify } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -10,8 +11,11 @@ import { AuthService } from '../services/services/auth.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  isLogin: boolean = false
+  isLogin: boolean = false;
+  isAdmin : boolean = false;
   errorMessage
+  roles = ["doctor","patient"]
+  
 
   constructor(
     private _api: ApiService,
@@ -21,6 +25,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.isUserLogin() ;
+    this.isUserAdmin();
   }
 
   onSubmit(form: NgForm) {
@@ -44,6 +49,19 @@ export class RegisterComponent implements OnInit {
     if(this._auth.getToken() != null){
       this.isLogin = true;
     }
+    else{
+      this.isLogin = false;
+    }
   }
+
+  isUserAdmin(){
+    if (this._auth.getUserDetails()=="admin"){
+      this.isAdmin = true;
+    }
+    else {
+      this.isAdmin = false;
+    }
+  }
+
 
 }

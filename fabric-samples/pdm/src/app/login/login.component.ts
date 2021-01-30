@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.isUserLogin();
-   
+    
    
   }
 
@@ -34,10 +34,10 @@ export class LoginComponent implements OnInit {
       this._api.postTypeRequest('login', form.value).subscribe((res: any) => {
 
       if (res) {
-        console.log(res.accessToken)
-        //this._auth.setDataInLocalStorage('userData', JSON.stringify(res.data));
+        console.log(res)
+        this._auth.setDataInLocalStorage('userData', res.rol);
         this._auth.setDataInLocalStorage('token', res.accessToken);
-        this._router.navigate(['register']);
+        this._router.navigateByUrl(res.rol);
       } 
       else {}
     }, 
@@ -51,6 +51,8 @@ export class LoginComponent implements OnInit {
       this.isLogin = true;
     }
   }
+
+ 
   
   logout(){
     this._auth.clearStorage();

@@ -12,13 +12,19 @@ import { AccessComponent } from './access/access.component';
 import { AuthModule } from './auth/auth/auth.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { AdminComponent } from './view/admin/admin.component';
+import { PatientComponent } from './view/patient/patient.component';
+import { DoctorComponent } from './view/doctor/doctor.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UpdateComponent,
     ReadComponent,
-    AccessComponent
+    AccessComponent,
+    AdminComponent,
+    PatientComponent,
+    DoctorComponent
   ],
   imports: [
     BrowserModule,

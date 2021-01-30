@@ -26,18 +26,29 @@ clinetApp.use(bodyParser.urlencoded({
 const credentials = require('./credentials.json')
 clinetApp.listen(5001, () => console.log('Backend server running on 5001'));
 
+
+
+
+
 /**
  * Method to get password from the credentials file. 
  * If the username doesnot exist then it will return empty string.
  * @create date 07-01-2021
  * @param  {} username
- * @return password
+ * @return password or role as per the given obj
  */
-function fetchCredentials(username){
-	const cred = credentials[username]
+function fetchCredentials(username,obj){
+  const cred = credentials[username]
+  var param = obj;
 	if(cred){
-		return cred.password
-	}else {
+    if(param=="password"){
+      return cred.password; 
+    }
+    else if(param=="role"){
+      return cred.role;
+    }
+  }
+	else {
 		return ""
 	}
 }
@@ -76,13 +87,16 @@ const authenticateJWT = (req, res, next) => {
  * @param  {} res
  */
 clinetApp.post('/login', (req, res) => {
-	const {username, password, role} = req.body;
-	const passwd = fetchCredentials(username);
-	const user = password === passwd;
+	const {username,role,password} = req.body;
+  const passwd = fetchCredentials(username,"password");
+  const user = password === passwd;
+  
+   
 	if(user){
-		// Generate an access token
+    // Generate an access token
+    const rol = fetchCredentials(username,"role")
     const accessToken = jwt.sign({username: username, role: role}, password);
-    res.json({accessToken,});
+    res.json({accessToken,rol});
 	} else {
 		res.send("Invalid Username or password");
 	}

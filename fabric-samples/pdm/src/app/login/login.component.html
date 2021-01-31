@@ -1,3 +1,6 @@
+<!-- Created By Faraz Shamim
+Last modification date : 31.01.2021 -->
+
 <div class = 'row m-0 w-100'>
     <div class = 'col-md-4 offset-4 mt-5' *ngIf = '!this.isLogin '>
         <h4>Login</h4>
@@ -11,26 +14,9 @@
         </form>
     </div>
     <div class = 'col-md-4 offset-4 mt-5' *ngIf = 'this.isLogin'>
-        <h1>You are logged in</h1>
+        <h1>You are logged in </h1>
+        
         <button class = 'btn btn-outline-info' (click) = 'logout()'>Log-out</button>
     </div>
 </div>
 
-<!-- <form [formGroup]="form">
-    <fieldset>
-        <legend>Login</legend>
-        <div class="form-field">
-            <label>Email:</label>
-            <input name="email" formControlName="email">
-        </div>
-        <div class="form-field">
-            <label>Password:</label>
-            <input name="password" formControlName="password" 
-                   type="password">
-        </div>
-    </fieldset>
-    <div class="form-buttons">
-        <button class="button button-primary" 
-                (click)="login()">Login</button>
-    </div>
-</form> -->

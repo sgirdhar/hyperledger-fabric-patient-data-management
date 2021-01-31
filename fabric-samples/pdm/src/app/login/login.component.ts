@@ -14,7 +14,8 @@ import { AuthService } from '../services/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   isLogin: boolean;
-  errorMessage
+  errorMessage;
+  role;
 
   
   constructor( 
@@ -38,9 +39,11 @@ export class LoginComponent implements OnInit {
 
       if (res) {
         console.log(res)
-        this._auth.setDataInLocalStorage('userData', res.rol);
+        this.role = res.rol;
+        this._auth.setDataInLocalStorage('userData', this.role);
         this._auth.setDataInLocalStorage('token', res.accessToken);
-        this._router.navigateByUrl(res.rol);
+        this._router.navigateByUrl(this.role);
+
       } 
       else {}
     }, 
@@ -60,6 +63,9 @@ export class LoginComponent implements OnInit {
   logout(){
     this._auth.clearStorage();
     this._router.navigate(['']);
-  }
+    window.location.reload();
+
+    }
+  
 
 }

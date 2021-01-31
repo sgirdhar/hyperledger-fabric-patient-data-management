@@ -7,11 +7,32 @@ import { DoctorComponent } from './view/doctor/doctor.component';
 import { PatientComponent } from './view/patient/patient.component';
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
-  {path: 'admin', component:AdminComponent},
-  {path: 'doctor', component:DoctorComponent},
-  {path:'patient', component:PatientComponent}
+  {
+    path: 'login', 
+    component: LoginComponent
+  },
+  {
+    path: 'admin',
+    component:AdminComponent
+  },
+  {
+    path: 'register', 
+    component: RegisterComponent
+  },
+  {
+    path: 'doctor', 
+    component:DoctorComponent
+  },
+  {
+    path:'patient', 
+    component:PatientComponent
+  },
+  {
+    path: '', redirectTo: 'login', 
+    pathMatch: 'full'},
+  {path: '**', redirectTo: 
+  'login', pathMatch: 'full'
+}
 ];
 
 @NgModule({

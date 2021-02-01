@@ -65,7 +65,7 @@ const authenticateJWT = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader) {
 		const token = authHeader.split(' ')[1];
-	const password = fetchCredentials(req.body.username);
+	const password = fetchCredentials(req.body.username,"password");
     jwt.verify(token, password, (err, user) => {
       if (err) {
         return res.sendStatus(403);
@@ -87,15 +87,13 @@ const authenticateJWT = (req, res, next) => {
  * @param  {} res
  */
 clinetApp.post('/login', (req, res) => {
-	const {username,role,password} = req.body;
+	const {username,password} = req.body;
   const passwd = fetchCredentials(username,"password");
   const user = password === passwd;
-  
-   
 	if(user){
     // Generate an access token
     const rol = fetchCredentials(username,"role")
-    const accessToken = jwt.sign({username: username, role: role}, password);
+    const accessToken = jwt.sign({username: username, role: rol}, password);
     res.json({accessToken,rol});
 	} else {
 		res.send("Invalid Username or password");

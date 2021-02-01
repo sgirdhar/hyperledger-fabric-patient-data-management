@@ -221,6 +221,21 @@ async function readAllPatientData(userObj) {
   }
 }
 
+// function to read the history of a record
+async function getRecordHistory(userObj) {
+  try {
+    console.log('Beginning getRecordHistory')
+    console.log('evaluating transaction for GetRecordHistory, patient id: ' + userObj)
+    const result = await evaluateTransaction('GetRecordHistory', userObj)
+    console.log(result)
+    console.log('Ending getRecordHistory')
+    return result
+  } catch (error) {
+    console.error(`getRecordHistory() --> Failed to read history for the record: ${error}`)
+    throw new Error(`Failed to read history for the record: ${error}`)
+  }
+}
+
 async function initLedger(userObj) {
   try {
     const network = await connectNetwork(userObj)
@@ -281,6 +296,7 @@ module.exports = {
   updatePatientHealthRecord,
   readPatientData,
   readAllPatientData,
+  getRecordHistory,
   updatePatientInfo,
   grantAccess,
   revokeAccess

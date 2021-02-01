@@ -219,6 +219,20 @@ clinetApp.post('/readAllPatientData', authenticateJWT, async (req, res) => {
   }
 });
 
+// Route to invoke function to get history of a record
+clinetApp.post('/getRecordHistory', authenticateJWT, async (req, res) => {
+  console.log('Beginning client API getRecordHistory')
+	const patientObj = new User(req.body)
+	const response = await app.getRecordHistory(patientObj);  
+	if (response.error) {
+    res.send(response.error);
+  } else {
+    res.send(response);
+  }
+  console.log(response)
+  console.log('Ending client API getRecordHistory')
+});
+
 clinetApp.post('/initialize', authenticateJWT, async (req, res) => {
 	const patientObj = new User(req.body)
 	const response = await app.initLedger(patientObj);

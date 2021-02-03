@@ -15,6 +15,7 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { AdminComponent } from './view/admin/admin.component';
 import { PatientComponent } from './view/patient/patient.component';
 import { DoctorComponent } from './view/doctor/doctor.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 @NgModule({
   declarations: [
@@ -22,9 +23,10 @@ import { DoctorComponent } from './view/doctor/doctor.component';
     UpdateComponent,
     ReadComponent,
     AccessComponent,
-    AdminComponent,
     PatientComponent,
-    DoctorComponent
+    DoctorComponent,
+    AdminComponent,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule,

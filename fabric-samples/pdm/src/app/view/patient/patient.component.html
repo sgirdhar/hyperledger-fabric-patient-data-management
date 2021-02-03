@@ -1,1 +1,14 @@
-<p>patient works!</p>
+<div *ngIf="!this.isPatient; then thenBlock else elseBlock" ></div>
+<ng-template #thenBlock >
+    <div class = 'col-md-4 offset-4 mt-5'>
+    <h5> Please Log in as Patient</h5>
+    </div>
+</ng-template>
+<!-- Please edit below only -->
+<ng-template #elseBlock >
+    <div class = 'col-md-4 offset-4 mt-5'>
+        <p>patient works!</p>
+        
+    </div>
+</ng-template>
+<router-outlet></router-outlet>

@@ -37,14 +37,14 @@ export class RegisterComponent implements OnInit {
     console.log('Your form data : ', form.value, );
     this._url = form.value.role;
     this._api.postTypeRequest(`register${this._url}`, form.value).subscribe((res: any) => {
-      if (res.response) {console.log(res);
-        //this._auth.setDataInLocalStorage('userData', JSON.stringify(res.data));
-       // this._auth.setDataInLocalStorage('token', res.getToken());this._router.navigate(['login']);
-       window.location.reload();
+      if (res) {
+        console.log(JSON.stringify(res));
+        alert(JSON.stringify(res));
+      window.location.reload();
       } 
       else {
         console.log(res);
-        alert(res.msg)}
+        alert(res)}
     },
     
     err => {

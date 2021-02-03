@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./doctor.component.css']
 })
 export class DoctorComponent implements OnInit {
-
-  constructor() { }
+  isDoctor : boolean = false;
+  constructor(private _auth : AuthService) { }
 
   ngOnInit(): void {
+    this.isDoctor = this._auth.isUserDoctor();
   }
 
 }

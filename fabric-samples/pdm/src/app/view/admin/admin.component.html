@@ -1,3 +1,14 @@
-<p>admin works!</p>
-<li class="nav-item"><a class="nav-link" [routerLink] = "['../register']" routerLinkActive = "active" >Register</a></li>
+<div *ngIf="!this.isAdmin; then thenBlock else elseBlock" ></div>
+<ng-template #thenBlock >
+    <div class = 'col-md-4 offset-4 mt-5'>
+    <h5> Please Log in as admin</h5>
+    </div>
+</ng-template>
+<!-- Please edit below only -->
+<ng-template #elseBlock >
+    <div class = 'col-md-4 offset-4 mt-5'>
+        <p>admin works!</p>
+        <li class="nav-item"><a class="nav-link" [routerLink] = "['../register']" routerLinkActive = "active" >Register</a></li>
+    </div>
+</ng-template>
 <router-outlet></router-outlet>

@@ -4,6 +4,7 @@ import { LoginComponent } from 'src/app/login/login.component';
 import { RegisterComponent } from 'src/app/register/register.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AdminComponent } from 'src/app/view/admin/admin.component';
 
 
 
@@ -19,7 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   exports :[
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
   ]
 })
 export class AuthModule { }

@@ -114,9 +114,9 @@ clinetApp.post('/registerDoctor', authenticateJWT,  async (req, res) => {
 	const doctorObj = new User(req.body)
 	const response = await app.registerDoctor(doctorObj);
 	if (response.error) {
-    res.send(response.error);
+    res.send(JSON.stringify(response.error));
   } else {
-    res.send(response);
+    res.send(JSON.stringify(response));
   }
 });
 

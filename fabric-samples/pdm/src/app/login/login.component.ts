@@ -1,11 +1,13 @@
+import { AuthModule } from './../auth/auth/auth.module';
 /* Created By Faraz Shamim
 Last Modification date : 31.01.2021
 */ 
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from '../services/services/api.service';
 import { AuthService } from '../services/services/auth.service';
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-login',
@@ -22,8 +24,11 @@ export class LoginComponent implements OnInit {
     private _api: ApiService,
     private _auth: AuthService,
     private _router:Router,
+    private _route: ActivatedRoute
    
-    ) {}
+    ) {
+      this
+    }
       
      
 
@@ -62,10 +67,13 @@ export class LoginComponent implements OnInit {
   
   logout(){
     this._auth.clearStorage();
-    this._router.navigate(['']);
     window.location.reload();
 
     }
   
+  redirect(){
+    console.log(JSON.stringify(this.role));
+    this._router.navigate(this.role);
+  }
 
 }

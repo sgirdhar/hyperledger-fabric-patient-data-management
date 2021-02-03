@@ -13,6 +13,9 @@ import {tap} from 'rxjs/operators'
   {providedIn: 'root'}
   )
 export class AuthService {
+    public isAdmin : boolean = false;
+    public isDoctor : boolean = false;
+    public isPatient : boolean = false;
   
   constructor(private http : HttpClient) { }
   
@@ -30,4 +33,32 @@ export class AuthService {
   clearStorage() {
     localStorage.clear();
   }
+
+  isUserAdmin(){
+    if (this.getUserDetails()=="admin"){
+      return true;
+    }
+    else {
+     return false;
+    }
+  }
+
+  isUserDoctor(){
+    if(this.getUserDetails()=="doctor"){
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  isUserPatient(){
+    if(this.getUserDetails()=="patient"){
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
 }

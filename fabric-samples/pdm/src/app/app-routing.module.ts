@@ -1,3 +1,4 @@
+import { UpdateHealthRecordComponent } from './components/update-health-record/update-health-record.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path : 'read',
     component : ReadComponent
+  },
+  {
+    path: 'updateHealthRecord',
+    component : UpdateHealthRecordComponent
   },
   {
     path: '', redirectTo: 'login', 

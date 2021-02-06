@@ -16,7 +16,7 @@ import { AuthService } from '../../services/auth/auth.service';
 export class RegisterComponent implements OnInit {
   isLogin: boolean = false;
   isAdmin : boolean = false;
-  errorMessage
+  errorMessage;
   roles = ["Doctor","Patient"];
   _url ;
   

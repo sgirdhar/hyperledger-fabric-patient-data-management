@@ -7,8 +7,9 @@
 <!-- Please edit below only -->
 <ng-template #elseBlock >
     <div class = 'col-md-4 offset-4 mt-5'>
-        <p>patient works!</p>
+        <h1>patient View!</h1>
         <li class="nav-item"><a class="nav-link" [routerLink] = "['../read']" routerLinkActive = "active" >Read Patient Data</a></li>
+        <li class="nav-item"><a class="nav-link" [routerLink] = "['../update']" routerLinkActive = "active" >Update Personal Info</a></li>
     </div>
 </ng-template>
 <router-outlet></router-outlet>

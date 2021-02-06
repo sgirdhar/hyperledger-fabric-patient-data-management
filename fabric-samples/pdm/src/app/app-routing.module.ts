@@ -7,6 +7,8 @@ import { AdminComponent } from './view/admin/admin.component';
 import { DoctorComponent } from './view/doctor/doctor.component';
 import { PatientComponent } from './view/patient/patient.component';
 import { ReadComponent } from './components/read/read.component';
+import { UpdateComponent } from './components/update/update.component'
+
 const routes: Routes = [
   {
     path: 'login', 
@@ -31,6 +33,10 @@ const routes: Routes = [
   {
     path : 'read',
     component : ReadComponent
+  },
+  {
+    path : 'update',
+    component : UpdateComponent
   },
   {
     path: '', redirectTo: 'login', 

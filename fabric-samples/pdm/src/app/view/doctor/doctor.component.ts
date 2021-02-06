@@ -1,8 +1,9 @@
 import { NgForm } from '@angular/forms';
-import { AuthService } from './../../services/services/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from 'src/app/services/services/api.service';
+
 import { User } from 'src/app/user';
+import { ApiService } from 'src/app/services/api/api.service';
 
 @Component({
   selector: 'app-doctor',

@@ -1,4 +1,5 @@
 <div *ngIf="!this.isValidUser; then thenBlock else elseBlock" ></div>
+
     <ng-template #thenBlock >
         <div class = 'col-md-4 offset-4 mt-5'>
         <h5> Please Log in as Doctor or Patient</h5>
@@ -10,9 +11,10 @@
             <div class='col-md-4 offset-4 mt-5' *ngIf="this.isDoctor">
             <p>doctor read works!</p>
 
-            <form #myform = "ngForm" enctype="application/x-www-form-urlencoded" type="button" (ngSubmit)="readByDoctor(myform)">
+            <form #myform = "ngForm" enctype="application/x-www-form-urlencoded" (ngSubmit)="readByDoctor(myform)">
 
-                <div class = "form-group" class="input">
+                <div class = "form-group">
+
                     <label for="username">Username: </label>
                     <input class="form-control" name = "username" placeholder="e.g. doctor1" ngModel>
                 
@@ -52,7 +54,7 @@
                 </div>
             </form>   
 
-            </div>
+        </div>
         <!-- Will show only below table in case of patient -->
         <table class="table">
             <thead>
@@ -69,7 +71,7 @@
             <tbody>
                 <tr *ngFor = "let p of patient">
                     <td>{{p?.PatientId}}</td>
-                    <td>{{p?.DoctorAuthorizationList</td> 
+                    <td>{{p?.DoctorAuthorizationList}}</td> 
                     <td>{{p?.Diagnosis}}</td>
                     <td>{{p?.Medication}}</td>
                     <td>{{p?.Address}}</td>

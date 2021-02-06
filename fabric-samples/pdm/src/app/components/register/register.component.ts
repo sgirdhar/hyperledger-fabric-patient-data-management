@@ -5,8 +5,8 @@ import { SelectorListContext } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ApiService } from '../services/services/api.service';
-import { AuthService } from '../services/services/auth.service';
+import { ApiService } from 'src/app/services/api/api.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-register',

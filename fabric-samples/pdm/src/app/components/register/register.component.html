@@ -1,0 +1,63 @@
+<!-- Created By Faraz Shamim
+Last modification date : 31.01.2021 -->
+
+
+<div *ngIf="!this.isAdmin; then thenBlock else elseBlock" ></div>
+
+<ng-template #thenBlock>
+    <div class = 'col-md-4 offset-4 mt-5' >
+        <h5> Please Log in as admin</h5>
+    </div>  
+</ng-template>  
+
+<ng-template #elseBlock>
+    <div class = 'col-md-4 offset-4 mt-5' >
+        <p>Register</p>
+        <form #myform = "ngForm" enctype="application/x-www-form-urlencoded" (ngSubmit) = "onSubmit(myform)">
+
+            <div class="form-group">
+
+                <label for="role" > Role:</label> 
+                <select class="form-control"  name ="role" ngModel>  
+                    <option *ngFor = "let role of roles" name="role" > {{role}}</option>
+                </select>
+                  
+                <label for="username">Username: </label> 
+                <input class = 'form-control'  name = 'username'  placeholder = "e.g admin" ngModel>
+             
+                <label for="Password"> Password:</label> 
+                <input class = 'form-control' type = "password" name = "password" placeholder = "Password" ngModel>
+    
+                <label for="id"> Id:</label> 
+                <input class = 'form-control' type = "text" name = "id" placeholder = "Id" ngModel>
+                
+                <label for="docrtorId"> Doctor Id:</label> 
+                <input class = 'form-control' type = "text" name = "doctorId" placeholder = "Docrtor Id" ngModel>
+                
+                <label for="org"> Organisation:</label>
+                <input class = 'form-control' type = "text" name = "org" placeholder = "Organisation" ngModel>
+             
+                <label for="address"> Address:</label>
+                <input class = 'form-control' type = "" name = "address" placeholder = "Address" ngModel>
+                
+                <label for="telephone"> Telephone:</label>
+                <input class = 'form-control' type = "text" name = "telephone" placeholder = "Telephone" ngModel>
+                
+                <br>
+                <h4>Only for patient registration</h4>
+                <label for="patientId"> PatientId:</label> 
+                <input class = 'form-control' type = "text" name = "patientId" placeholder = "Patient Id" ngModel>
+
+                <label for="diagnosis"> Diagnosis:</label>
+                <input class = 'form-control' type = "text" name = "diagnosis" placeholder = "Diagnosis" ngModel>
+                 
+                
+                <label for="medication"> Medication:</label>
+                <input class = 'form-control' type = "text" name = "medication" placeholder = "Medication" ngModel>
+            
+                <input class= 'btn btn-outline-info' type = "submit" name = "Register" value = "register">
+               
+            </div>
+        </form>
+    </div>
+</ng-template>

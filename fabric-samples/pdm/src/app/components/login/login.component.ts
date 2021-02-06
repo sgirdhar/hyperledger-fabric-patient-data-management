@@ -1,13 +1,14 @@
-import { AuthModule } from './../auth/auth/auth.module';
+import { AuthModule } from '../../auth/auth.module';
 /* Created By Faraz Shamim
 Last Modification date : 31.01.2021
 */ 
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ApiService } from '../services/services/api.service';
-import { AuthService } from '../services/services/auth.service';
+
+import { AuthService } from '../../services/auth/auth.service';
 import { stringify } from '@angular/compiler/src/util';
+import { ApiService } from 'src/app/services/api/api.service';
 
 @Component({
   selector: 'app-login',

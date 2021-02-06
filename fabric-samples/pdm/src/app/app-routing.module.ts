@@ -1,12 +1,12 @@
-import { NotfoundComponent } from './notfound/notfound.component';
+import { NotfoundComponent } from './components/notfound/notfound.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 import { AdminComponent } from './view/admin/admin.component';
 import { DoctorComponent } from './view/doctor/doctor.component';
 import { PatientComponent } from './view/patient/patient.component';
-import { ReadComponent } from './read/read.component';
+import { ReadComponent } from './components/read/read.component';
 const routes: Routes = [
   {
     path: 'login', 

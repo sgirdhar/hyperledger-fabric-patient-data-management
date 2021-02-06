@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.isUserLogin() ;
-    this.isUserAdmin();
+    this.isAdmin = this._auth.isUserAdmin();
   }
 
   onSubmit(form: NgForm) {
@@ -60,13 +60,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  isUserAdmin(){
-    if (this._auth.getUserDetails()=="admin"){
-      this.isAdmin = true;
-    }
-    else {
-      this.isAdmin = false;
-    }
+
 
     
 
@@ -82,7 +76,7 @@ export class RegisterComponent implements OnInit {
     //   }
     
     // }
-  }
+  
  
 
 

@@ -16,6 +16,7 @@ import { AdminComponent } from './view/admin/admin.component';
 import { PatientComponent } from './view/patient/patient.component';
 import { DoctorComponent } from './view/doctor/doctor.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { NotfoundComponent } from './notfound/notfound.component';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

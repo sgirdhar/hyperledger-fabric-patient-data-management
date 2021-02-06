@@ -6,6 +6,7 @@ import { RegisterComponent } from './register/register.component';
 import { AdminComponent } from './view/admin/admin.component';
 import { DoctorComponent } from './view/doctor/doctor.component';
 import { PatientComponent } from './view/patient/patient.component';
+import { ReadComponent } from './read/read.component';
 const routes: Routes = [
   {
     path: 'login', 
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path:'patient', 
     component:PatientComponent
+  },
+  {
+    path : 'read',
+    component : ReadComponent
   },
   {
     path: '', redirectTo: 'login', 

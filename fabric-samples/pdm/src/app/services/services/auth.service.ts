@@ -19,8 +19,8 @@ export class AuthService {
   
   constructor(private http : HttpClient) { }
   
-  getUserDetails() {
-  return localStorage.getItem('userData');
+  getUserDetails(variableName) {
+  return localStorage.getItem(variableName);
   }
     
   setDataInLocalStorage(variableName : string, data : string) {
@@ -35,7 +35,7 @@ export class AuthService {
   }
 
   isUserAdmin(){
-    if (this.getUserDetails()=="admin"){
+    if (this.getUserDetails("userData")=="admin"){
       return true;
     }
     else {
@@ -44,7 +44,7 @@ export class AuthService {
   }
 
   isUserDoctor(){
-    if(this.getUserDetails()=="doctor"){
+    if(this.getUserDetails("userData")=="doctor"){
       return true;
     }
     else {
@@ -53,12 +53,13 @@ export class AuthService {
   }
 
   isUserPatient(){
-    if(this.getUserDetails()=="patient"){
+    if(this.getUserDetails("userData")=="patient"){
       return true;
     }
     else {
       return false;
     }
   }
+
 
 }

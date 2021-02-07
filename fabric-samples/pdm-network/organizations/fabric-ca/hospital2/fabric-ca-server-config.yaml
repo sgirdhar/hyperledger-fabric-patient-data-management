@@ -123,7 +123,7 @@ registry:
 
   # Contains identity information which is used when LDAP is disabled
   identities:
-     - name: admin
+     - name: admin2
        pass: adminpw
        type: client
        affiliation: ""

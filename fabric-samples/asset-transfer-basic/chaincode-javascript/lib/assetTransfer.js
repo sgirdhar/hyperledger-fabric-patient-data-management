@@ -81,7 +81,7 @@ class AssetTransfer extends Contract {
             // OrganisationAuthorizationList: organisationAuthorizationList,
             // docType: 'EHR',
         };
-        ctx.stub.putState(patientId, Buffer.from(JSON.stringify(record)));          
+        ctx.stub.putState(patientId, Buffer.from(JSON.stringify(record)));
         return JSON.stringify(record);
     }
 
@@ -176,58 +176,46 @@ class AssetTransfer extends Contract {
     }
 
     // GetRecordHistory returns the history of a particular record
-	async GetRecordHistory(ctx, userObj) {
-
-        console.info('getting history for key: ' + userObj.patientId);
-		// let resultsIterator = await ctx.stub.getHistoryForKey(userObj.patientId);
-		// let results = await this.GetAllResults(resultsIterator);
-
-        const promiseOfIterator = ctx.stub.getHistoryForKey(userObj.patientId);
-
-        const results = [];
-        for await (const keyMod of promiseOfIterator) {
-            const resp = {
-                timestamp: keyMod.timestamp,
-                txid: keyMod.tx_id
-            }
-            if (keyMod.is_delete) {
-                resp.data = 'KEY DELETED';
-            } else {
-                resp.data = JSON.parse(keyMod.value.value.toString('utf8'));
-            }
-            results.push(resp);
-        }
-        // results array contains the key history
-        
+    async GetRecordHistory(ctx, userObj) {
+        userObj = JSON.parse(userObj);
+        let resultsIterator = await ctx.stub.getHistoryForKey(userObj.patientId);
+        let results = await this.GetAllResults(resultsIterator);
         return JSON.stringify(results);
         // return results;
-     	}
+    }
 
-	async GetAllResults(iterator) {
-		let allResults = [];
-		let res = await iterator.next();
-		while (!res.done) {
-			if (res.value && res.value.value.toString()) {
+    async GetAllResults(iterator, isHistory) {
+        let allResults = [];
+        let res = await iterator.next();
+        while (!res.done) {
+            if (res.value && res.value.value.toString()) {
                 let jsonRes = {};
-                console.info(`found state update with value: ${res.value.value.toString('utf8')}`);
-                // console.log(res.value.value.toString('utf8'));
-                
-				jsonRes.TxId = res.value.tx_id;
-				jsonRes.Timestamp = res.value.timestamp;
-				try {
-					jsonRes.Value = JSON.parse(res.value.value.toString('utf8'));
-				} catch (err) {
-					console.log(err);
-					jsonRes.Value = res.value.value.toString('utf8');
-				}
-				allResults.push(jsonRes);
-			}
-			res = await iterator.next();
-		}
-        await iterator.close();
-        console.info('allResults: ' + allResults);
-		return allResults;
-	}
+                console.log(res.value.value.toString('utf8'));
+                if (isHistory && isHistory === true) {
+                    jsonRes.TxId = res.value.tx_id;
+                    jsonRes.Timestamp = res.value.timestamp;
+                    try {
+                        jsonRes.Value = JSON.parse(res.value.value.toString('utf8'));
+                    } catch (err) {
+                        console.log(err);
+                        jsonRes.Value = res.value.value.toString('utf8');
+                    }
+                } else {
+                    jsonRes.Key = res.value.key;
+                    try {
+                        jsonRes.Record = JSON.parse(res.value.value.toString('utf8'));
+                    } catch (err) {
+                        console.log(err);
+                        jsonRes.Record = res.value.value.toString('utf8');
+                    }
+                }
+                allResults.push(jsonRes);
+            }
+            res = await iterator.next();
+        }
+        iterator.close();
+        return allResults;
+    }
 
     /**
      * Update patient's personal information.

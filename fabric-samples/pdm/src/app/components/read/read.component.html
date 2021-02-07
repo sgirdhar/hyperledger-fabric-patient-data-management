@@ -56,28 +56,6 @@
 
         </div>
 
-        <div class='col-md-4 offset-4 mt-5' *ngIf="this.isPatient">
-            <h1>Patient Read View!</h1>
-
-            <form #myform = "ngForm" enctype="application/x-www-form-urlencoded" (ngSubmit)="readByPatient(myform)">
-
-                <div class = "form-group">
-
-                    <label for="org">View details for Hospital: </label>
-                    <input class="form-control"  name="org" placeholder="e.g. Hospital1" ngModel>
-               
-                    <div>
-                        <input class= 'btn btn-outline-info' type = "submit" name = "Request" value = "request">
-                    </div>
-                
-                </div>
-            </form>   
-
-        </div>
-
-        <div *ngIf="this.returnsData; then block1" ></div>
-
-        <ng-template #block1 >
             <div >
                 <!-- Will show only below table in case of patient -->
             <table class="table">
@@ -105,6 +83,5 @@
     
             </table>
             </div> 
-        </ng-template>        
 
     </ng-template>

@@ -8,10 +8,10 @@
 <ng-template #elseBlock >
     <div class = 'col-md-4 offset-4 mt-5'>
         <h1>Welcome {{username}}!</h1>
-        <li class="nav-item"><a class="nav-link" [routerLink] = "['../read']" routerLinkActive = "active" >Read Patient Data</a></li>
-        <li class="nav-item"><a class="nav-link" [routerLink] = "['../update']" routerLinkActive = "active" >Update Personal Info</a></li>
-        <li class="nav-item"><a class="nav-link" [routerLink] = "['../grant']" routerLinkActive = "active" >Grant Access to Doctor</a></li>
-        <li class="nav-item"><a class="nav-link" [routerLink] = "['../revoke']" routerLinkActive = "active" >Revoke Access for a Doctor</a></li>
+        <li class="nav-item"><a class="nav-link" [routerLink] = "['../read']" routerLinkActive = "active" ><h1>Read my Data</h1></a></li>
+        <li class="nav-item"><a class="nav-link" [routerLink] = "['../update']" routerLinkActive = "active" ><h1>Update personal info</h1></a></li>
+        <li class="nav-item"><a class="nav-link" [routerLink] = "['../grant']" routerLinkActive = "active" ><h1>Grant access to doctor</h1></a></li>
+        <li class="nav-item"><a class="nav-link" [routerLink] = "['../revoke']" routerLinkActive = "active" ><h1>Revoke access for a doctor</h1></a></li>
     </div>
 </ng-template>
 <router-outlet></router-outlet>

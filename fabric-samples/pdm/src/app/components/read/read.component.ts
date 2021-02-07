@@ -21,6 +21,7 @@ export class ReadComponent implements OnInit {
   username;
   patientId;
   id;
+  errorMessage;
   returnsData : boolean = false;
 
   constructor(private _auth : AuthService,
@@ -56,11 +57,18 @@ export class ReadComponent implements OnInit {
     
     this.role = ""
     this._api.postTypeRequest("readPatientData",form.value).subscribe((res : any)=>{
+      if (res){
       this.patient = Array.of(res);
       console.log(res);
       this.returnsData = true;
+    }
+      else {
+        console.log(res);
+        alert(res)}
+    },
+    err => {
+      this.errorMessage = err['error'].message;
     });
-
   }
 
   // for patient to read His/Her Data

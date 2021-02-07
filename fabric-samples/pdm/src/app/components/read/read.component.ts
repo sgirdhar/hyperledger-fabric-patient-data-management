@@ -17,12 +17,12 @@ export class ReadComponent implements OnInit {
   isDoctor : boolean;
   isPatient : boolean;
   roleDoctor = "doctor";
-  role;
-  username;
-  patientId;
-  id;
+  role : string;
+  username : String;
+  patientId : String;
+  id : String;
+  org : String;
   errorMessage;
-  returnsData : boolean = false;
 
   constructor(private _auth : AuthService,
               private _route : RouterModule,
@@ -36,7 +36,7 @@ export class ReadComponent implements OnInit {
       this.patientId = this._auth.getUserDetails("username");
       this.role = 'patient';
       this.id = this._auth.getUserDetails("username");
-      this.returnsData = false;
+      this.org = "Hospital1";
     }
 
     this.isValidUser = function(){
@@ -48,7 +48,7 @@ export class ReadComponent implements OnInit {
       }
     }
 
-    // this.readByPatient();
+     this.readByPatient();
 
   }
   // for doctor to read Patient Data
@@ -60,7 +60,6 @@ export class ReadComponent implements OnInit {
       if (res){
       this.patient = Array.of(res);
       console.log(res);
-      this.returnsData = true;
     }
       else {
         console.log(res);
@@ -72,18 +71,15 @@ export class ReadComponent implements OnInit {
   }
 
   // for patient to read His/Her Data
-  readByPatient(form : NgForm){
+  readByPatient(){
     if(this.isPatient){
-      console.log(this._auth.getUserDetails("username"));
-      console.log(this._auth.getToken());
-      let payload = { username: this._auth.getUserDetails("username"), 
-                      patientId: this._auth.getUserDetails("username"), 
-                      role: 'patient', 
-                      id:this._auth.getUserDetails("username"), 
-                      org: form.value.org}
+      let payload = { username: this.username,
+                      patientId: this.patientId,
+                      role: this.role,
+                      id: this.id,
+                      org: this.org }
       this._api.postTypeRequest("readPatientData",payload).subscribe((res : any)=>{
-      this.patient = Array.of(res);
-      this.returnsData = true;
+        this.patient = Array.of(res);
       });
     }
   }

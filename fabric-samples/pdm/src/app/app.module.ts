@@ -21,6 +21,12 @@ import { UpdateHealthRecordComponent } from './components/update-health-record/u
 import { GrantAccessComponent } from './components/grant-access/grant-access.component';
 import { RevokeAccessComponent } from './components/revoke-access/revoke-access.component';
 
+
+import {MatMenuModule} from '@angular/material/menu'; 
+
+import {MatButtonModule} from '@angular/material/button';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +49,11 @@ import { RevokeAccessComponent } from './components/revoke-access/revoke-access.
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+
+    MatMenuModule,
+
+    MatButtonModule
   ],
   providers: [
     {
@@ -55,3 +65,4 @@ import { RevokeAccessComponent } from './components/revoke-access/revoke-access.
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+export class DemoMaterialModule {}

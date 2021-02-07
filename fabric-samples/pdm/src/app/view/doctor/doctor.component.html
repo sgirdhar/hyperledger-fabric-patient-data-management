@@ -8,9 +8,11 @@
 <ng-template #elseBlock >
     <div class='col-md-4 offset-4 mt-5'>
         <h1>Welcome {{username}}!</h1>
-     <li class="nav-item"><a class="nav-link" [routerLink] = "['../read']" routerLinkActive = "active" >Read Patient Data</a></li>
-     <li class="nav-item"><a class="nav-link" [routerLink] = "['../updateHealthRecord']" routerLinkActive = "active" >Update Patient Data</a></li>
-     
+      <!-- <li class="nav-item"><a class="nav-link" [routerLink] = "['../read']" routerLinkActive = "active" >Read Patient Data</a></li>
+     <li class="nav-item"><a class="nav-link" [routerLink] = "['../updateHealthRecord']" routerLinkActive = "active" >Update Patient Data</a></li> -->
+     <button mat-button><a class="nav-link" [routerLink] = "['../read']" routerLinkActive = "active" >Read Patient Data</a></button>
+     <button mat-button style="float: right;"><a class="nav-link" [routerLink] = "['../updateHealthRecord']" routerLinkActive = "active" >Update Patient Data</a></button>
+       
     </div>
 </ng-template>
 

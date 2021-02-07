@@ -11,11 +11,11 @@ Last modification date : 31.01.2021 -->
 </ng-template>  
 
 <ng-template #elseBlock>
-    <div class = 'col-md-4 offset-4 mt-5' >
+    <div class = 'col-md-4 offset-4 mt-5 posFixed' >
         <p>Register</p>
         <form #myform = "ngForm" enctype="application/x-www-form-urlencoded" (ngSubmit) = "onSubmit(myform)">
 
-            <div class="form-group">
+            <div class="form-group posFixed">
 
                 <label for="role" > Role:</label> 
                 <select class="form-control"  name ="role" ngModel>  
@@ -54,9 +54,9 @@ Last modification date : 31.01.2021 -->
                 
                 <label for="medication"> Medication:</label>
                 <input class = 'form-control' type = "text" name = "medication" placeholder = "Medication" ngModel>
-            
-                <input class= 'btn btn-outline-info' type = "submit" name = "Register" value = "register">
-               
+                <p></p>
+                <input class= 'btn btn-outline-info' type = "submit" name = "Register" value = "Register">
+                <div class="padding-bottom"></div>
             </div>
         </form>
     </div>

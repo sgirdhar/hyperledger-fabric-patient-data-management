@@ -14,10 +14,14 @@ import { ApiService } from 'src/app/services/api/api.service';
 export class ReadComponent implements OnInit {
   patient : User[];
   isValidUser;
-  isDoctor;
-  isPatient;
-  role = ["doctor"];
+  isDoctor : boolean;
+  isPatient : boolean;
+  // role = ["doctor,patient"];
+  role;
   username;
+  patientId;
+  id;
+  returnsData : boolean = false;
 
   constructor(private _auth : AuthService,
               private _route : RouterModule,
@@ -25,6 +29,14 @@ export class ReadComponent implements OnInit {
 
   ngOnInit(): void {
     this.isDoctor = this._auth.isUserDoctor();
+    this.isPatient = this._auth.isUserPatient();
+    if(this.isPatient) {
+      this.username = this._auth.getUserDetails("username");
+      this.patientId = this._auth.getUserDetails("username");
+      this.role = 'patient';
+      this.id = this._auth.getUserDetails("username");
+      this.returnsData = false;
+    }
     this.isValidUser = function(){
       if (this._auth.isDoctor || this._auth.isPatient){
         return true;
@@ -34,7 +46,7 @@ export class ReadComponent implements OnInit {
       }
     }
 
-    this.readByPatient();
+    // this.readByPatient();
 
   }
   // for doctor to read Patient Data
@@ -49,15 +61,21 @@ export class ReadComponent implements OnInit {
 
   }
 
-  //for patient to read His/Her Data
-  readByPatient(){
+  // for patient to read His/Her Data
+  readByPatient(form : NgForm){
     if(this.isPatient){
       console.log(this._auth.getUserDetails("username"));
-      this._api.postTypeRequest("readPatientData",this._auth.getUserDetails("username")).subscribe((res : any)=>{
-        this.patient = Array.of(res);
-        console.log(res);
+      console.log(this._auth.getToken());
+      let payload = { username: this._auth.getUserDetails("username"), 
+                      patientId: this._auth.getUserDetails("username"), 
+                      role: 'patient', 
+                      id:this._auth.getUserDetails("username"), 
+                      org: form.value.org}
+      this._api.postTypeRequest("readPatientData",payload).subscribe((res : any)=>{
+      this.patient = Array.of(res);
+      this.returnsData = true;
       });
     }
-
   }
+
 }

@@ -8,6 +8,10 @@ import { AdminComponent } from './view/admin/admin.component';
 import { DoctorComponent } from './view/doctor/doctor.component';
 import { PatientComponent } from './view/patient/patient.component';
 import { ReadComponent } from './components/read/read.component';
+import { UpdateComponent } from './components/update/update.component';
+import { GrantAccessComponent } from './components/grant-access/grant-access.component';
+import { RevokeAccessComponent } from './components/revoke-access/revoke-access.component';
+
 const routes: Routes = [
   {
     path: 'login', 
@@ -34,8 +38,21 @@ const routes: Routes = [
     component : ReadComponent
   },
   {
+<<<<<<< HEAD
     path: 'updateHealthRecord',
     component : UpdateHealthRecordComponent
+=======
+    path : 'update',
+    component : UpdateComponent
+  },
+  {
+    path : 'grant',
+    component : GrantAccessComponent
+  },
+  {
+    path : 'revoke',
+    component : RevokeAccessComponent
+>>>>>>> 78e1faa67d8ebd2cb304153184e78120f28228cf
   },
   {
     path: '', redirectTo: 'login', 

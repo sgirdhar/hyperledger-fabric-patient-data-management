@@ -1,4 +1,4 @@
-import { AuthService } from './../../services/services/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PatientComponent implements OnInit {
   isPatient : boolean = false;
+  username;
+  
   constructor(private _auth: AuthService) { }
 
   ngOnInit(): void {
     this.isPatient = this._auth.isUserPatient();
+    this.username = this._auth.getUserDetails("username");
   }
 
 }

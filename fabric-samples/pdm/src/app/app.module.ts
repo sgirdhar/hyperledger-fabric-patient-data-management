@@ -6,17 +6,20 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { UpdateComponent } from './update/update.component';
-import { ReadComponent } from './read/read.component';
-import { AccessComponent } from './access/access.component';
-import { AuthModule } from './auth/auth/auth.module';
+import { UpdateComponent } from './components/update/update.component';
+import { ReadComponent } from './components/read/read.component';
+import { AccessComponent } from './components/access/access.component';
+import { AuthModule } from './auth/auth.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { AuthInterceptor } from './services/interceptor/auth.interceptor';
 import { AdminComponent } from './view/admin/admin.component';
 import { PatientComponent } from './view/patient/patient.component';
 import { DoctorComponent } from './view/doctor/doctor.component';
-import { NotfoundComponent } from './notfound/notfound.component';
+import { NotfoundComponent } from './components/notfound/notfound.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UpdateHealthRecordComponent } from './components/update-health-record/update-health-record.component';
+import { GrantAccessComponent } from './components/grant-access/grant-access.component';
+import { RevokeAccessComponent } from './components/revoke-access/revoke-access.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PatientComponent,
     DoctorComponent,
     AdminComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    UpdateHealthRecordComponent,
+    GrantAccessComponent,
+    RevokeAccessComponent
   ],
   imports: [
     BrowserModule,

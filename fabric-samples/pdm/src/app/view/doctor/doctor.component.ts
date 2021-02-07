@@ -17,6 +17,7 @@ export class DoctorComponent implements OnInit {
   columnsToDisplay=["Patient Id","Doctor Authorization List",
                     "Diagnosis","Medication","Address","Telephone"]
   role = "doctor";
+  username;
 
   constructor(
     private _auth : AuthService,
@@ -24,6 +25,7 @@ export class DoctorComponent implements OnInit {
 
   ngOnInit(): void {
     this.isDoctor = this._auth.isUserDoctor();
+    this.username = this._auth.getUserDetails("username");
   }
 
  

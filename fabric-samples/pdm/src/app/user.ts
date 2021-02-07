@@ -3,7 +3,7 @@ export class User {
       patientId : string;
       org : string;
       address : string;
-      telephone: number;
+      telephone: string;
       diagnosis : string;
       medication : string;
       doctorId : string;

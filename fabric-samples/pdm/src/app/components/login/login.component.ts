@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   errorMessage;
   role;
   username;
-
+  roleLoggedIn;
   
   constructor( 
     private _api: ApiService,
@@ -28,15 +28,13 @@ export class LoginComponent implements OnInit {
     private _router:Router,
     private _route: ActivatedRoute
    
-    ) {
-      this
-    }
+    ) {}
       
      
 
   ngOnInit(): void {
     this.isUserLogin();
-    
+    this.roleLoggedIn = this._auth.getUserDetails("userData");
    
   }
 
@@ -52,7 +50,6 @@ export class LoginComponent implements OnInit {
         this._auth.setDataInLocalStorage('userData', this.role);
         this._auth.setDataInLocalStorage('token', res.accessToken);
         this._router.navigateByUrl(this.role);
-
       } 
       else {}
     }, 

@@ -16,7 +16,7 @@ export class ReadComponent implements OnInit {
   isValidUser;
   isDoctor : boolean;
   isPatient : boolean;
-  // role = ["doctor,patient"];
+  roleDoctor = "doctor";
   role;
   username;
   patientId;
@@ -37,6 +37,7 @@ export class ReadComponent implements OnInit {
       this.id = this._auth.getUserDetails("username");
       this.returnsData = false;
     }
+
     this.isValidUser = function(){
       if (this._auth.isDoctor || this._auth.isPatient){
         return true;
@@ -52,11 +53,12 @@ export class ReadComponent implements OnInit {
   // for doctor to read Patient Data
   readByDoctor(form : NgForm){
     console.log(form.value);
-    console.log("i am in updatedHealthRecord");
-
+    
+    this.role = ""
     this._api.postTypeRequest("readPatientData",form.value).subscribe((res : any)=>{
       this.patient = Array.of(res);
       console.log(res);
+      this.returnsData = true;
     });
 
   }

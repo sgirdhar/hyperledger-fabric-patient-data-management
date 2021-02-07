@@ -38,11 +38,11 @@ const routes: Routes = [
     component : ReadComponent
   },
   {
-<<<<<<< HEAD
     path: 'updateHealthRecord',
-    component : UpdateHealthRecordComponent
-=======
-    path : 'update',
+    component : UpdateHealthRecordComponent}
+    ,
+
+  { path : 'update',
     component : UpdateComponent
   },
   {
@@ -52,7 +52,6 @@ const routes: Routes = [
   {
     path : 'revoke',
     component : RevokeAccessComponent
->>>>>>> 78e1faa67d8ebd2cb304153184e78120f28228cf
   },
   {
     path: '', redirectTo: 'login', 

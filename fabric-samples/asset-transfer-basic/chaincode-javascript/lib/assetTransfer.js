@@ -179,7 +179,7 @@ class AssetTransfer extends Contract {
     async GetRecordHistory(ctx, userObj) {
         userObj = JSON.parse(userObj);
         let resultsIterator = await ctx.stub.getHistoryForKey(userObj.patientId);
-        let results = await this.GetAllResults(resultsIterator);
+        let results = await this.GetAllResults(resultsIterator, true);
         return JSON.stringify(results);
         // return results;
     }

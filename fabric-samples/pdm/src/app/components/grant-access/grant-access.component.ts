@@ -33,7 +33,7 @@ export class GrantAccessComponent implements OnInit {
     this.role = this._auth.getUserDetails("userData");
     this.id = this._auth.getUserDetails("username");
 
-    this.readByPatient()
+    this.readByPatient();
   }
 
   // for patient to read His/Her Data

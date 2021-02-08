@@ -22,11 +22,7 @@
                     <br>
 
                     <label for="newDoc">Grant new access to: </label>
-                    <input class="form-control"  name="newDoc" placeholder="New doctor" required [(ngModel)]="newDoctor" ngModel>
-
-                    <div *ngIf="newDoc.errors.required">
-                        Name is required.
-                    </div>
+                    <input class="form-control"  name="newDoc" placeholder="New doctor Id" required [(ngModel)]="newDoctor" ngModel>
               
                     <br>
                     <input class= 'btn btn-outline-info' type = "submit" name = "Grant" value = "Grant Access">

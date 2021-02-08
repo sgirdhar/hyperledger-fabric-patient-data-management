@@ -19,8 +19,8 @@ export class UpdateComponent implements OnInit {
   role : String;
   id : String;
   org : String;
-  add : String
-  tel : number
+  add : String;
+  tel : number;
   
   isPatient : boolean = false;
   constructor(private _auth : AuthService,

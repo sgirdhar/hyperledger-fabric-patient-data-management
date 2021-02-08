@@ -57,16 +57,18 @@ export class ReadComponent implements OnInit {
   readByDoctor(form : NgForm){
     
     let payload = { username: this.username,
-                    patientId: form.value.patientId,
                     role: this.role,
                     id: this.id,
                     doctorId: this.username,
+                    patientId: form.value.patientId,
                     org: form.value.org }
     console.log(payload);
     
     this._api.postTypeRequest("readPatientData",payload).subscribe((res : any)=>{
-
+      this._auth.setDataInLocalStorage("patientId",form.value.patientId);
+      this._auth.setDataInLocalStorage("org",form.value.org);
       this.patient = Array.of(res);
+
       console.log(res);
     });
   }

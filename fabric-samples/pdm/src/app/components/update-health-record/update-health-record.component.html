@@ -2,46 +2,36 @@
 
     <ng-template #thenBlock >
         <div class = 'col-md-4 offset-4 mt-5'>
-        <h5> Please Log in as Doctor or Patient</h5>
+        <h3> Please Log in as Doctor </h3>
         </div>  
     </ng-template>
 <!-- Please edit below only -->
     <ng-template #elseBlock >
         
-            <div class='col-md-4 offset-4 mt-5' >
 
-            <form #myform = "ngForm" enctype="application/x-www-form-urlencoded" (ngSubmit)="UpdateHealthRecord(myform)">
+            <form #myform = "ngForm" enctype="application/x-www-form-urlencoded" (ngSubmit)="UpdateHealthRecord(myform) " >
 
-                <div class = "form-group">
-
-                    <label for="Organization"> Organization: </label>
-                    <input class="form-control"  name="org" placeholder="e.g. Hospital1" ngModel>
-
-                    <label for="PatientId">Patient Id: </label>
-                    <input class="form-control"  name="patientId" placeholder="e.g. Patient1" ngModel>                 
-
-                 
-                    <label for="diagnosis">Diagnosis:  </label>
-                    <input class="form-control"   name="diagnosis" placeholder="Diagnosis" ngModel>
-                
-
-                 
-                    <label for="org">Medication: </label>
-                    <input class="form-control"  name="medication" placeholder="Medication" ngModel>
-              
-                    <input class= 'btn btn-outline-info' type = "submit" name = "Request" value = "request">
-                
+                <div class = "form-group" class = 'col-md-4 offset-4 mt-5'>
+                    
+                    <label for="diagnosis">Diagnosis:  
+                    <input  class="form-control"   name="diagnosis" placeholder="Diagnosis"  ngModel >
+                    </label>
+                    <br>
+                    <label for="org">Medication: 
+                    <input  class="form-control"  name="medication" placeholder="Medication" ngModel>
+                    </label>
+                    <br>
+                    <input   class= 'btn btn-outline-info' type = "submit" name = "Update" value = "Update">
                 </div>
+            
             </form>   
 
-        </div>
+       
 
 
-        <div *ngIf="this.returnsData; then block1" ></div>
-
-        <ng-template #block1 >
-            <div >
-                <!-- Will show only below table in case of patient -->
+        
+            <!-- <div >
+                 Will show only below table in case of patient
             <table class="table">
                 <thead>
                     <tr>
@@ -66,7 +56,6 @@
                 </tbody>
     
             </table>
-            </div> 
-        </ng-template>        
+            </div>        -->
 
     </ng-template>

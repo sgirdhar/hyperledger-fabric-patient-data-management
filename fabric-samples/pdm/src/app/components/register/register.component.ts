@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit {
   errorMessage;
   roles = ["Doctor","Patient"];
   _url ;
+  username;
   
 
   constructor(
@@ -30,13 +31,14 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.isUserLogin() ;
     this.isAdmin = this._auth.isUserAdmin();
+    this.username = this._auth.getUserDetails("username")
   }
 
   onSubmit(form: NgForm) {
     
-    console.log('Your form data : ', form.value, );
+    console.log('Your form data : ', form.value );
     this._url = form.value.role;
-    let payload = { username : this._auth.getUserDetails("username"),
+    let payload = { username : this.username,
                     role : form.value.role,
                     id: form.value.id,
                     doctorId : form.value.doctorId,
@@ -46,8 +48,8 @@ export class RegisterComponent implements OnInit {
                     patientId : form.value.patientId,
                     medication : form.value.medication,
                     diagnosis : form.value.diagnosis
-
-      }
+                  }
+      console.log ( payload);
     this._api.postTypeRequest(`register${this._url}`, payload).subscribe((res: any) => {
       if (res) {
         console.log(JSON.stringify(res));

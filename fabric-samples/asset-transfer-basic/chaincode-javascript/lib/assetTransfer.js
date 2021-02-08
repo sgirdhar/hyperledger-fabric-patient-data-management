@@ -59,7 +59,7 @@ class AssetTransfer extends Contract {
         userObj = JSON.parse(userObj);
         const patientId = userObj.patientId;
         const address = userObj.address;
-        const tel = userObj.tel;
+        const telephone = userObj.telephone;
         const diagnosis = userObj.diagnosis;
         const medication = userObj.medication;
         const doctorId = userObj.doctorId;
@@ -72,7 +72,7 @@ class AssetTransfer extends Contract {
         const record = {
             PatientId: patientId,
             Address: address,
-            Telephone: parseInt(tel,10),
+            Telephone: parseInt(telephone,10),
             // HealthRecordId: healthRecordId,
             Diagnosis: diagnosis,
             Medication: medication,
@@ -228,7 +228,7 @@ class AssetTransfer extends Contract {
         userObj = JSON.parse(userObj);
         const patientId = userObj.patientId;
         const address = userObj.address;
-        const tel = userObj.tel;
+        const telephone = userObj.telephone;
 
         const recordJSON = await ctx.stub.getState(patientId);
         if (!recordJSON || recordJSON.length === 0) {
@@ -237,7 +237,7 @@ class AssetTransfer extends Contract {
 
         const updatedRecord = JSON.parse(recordJSON.toString());
         updatedRecord.Address = address;
-        updatedRecord.Telephone = parseInt(tel,10);
+        updatedRecord.Telephone = parseInt(telephone,10);
         ctx.stub.putState(patientId, Buffer.from(JSON.stringify(updatedRecord)));
         return JSON.stringify(updatedRecord);
     }

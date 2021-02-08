@@ -32,7 +32,7 @@ export class UpdateHealthRecordComponent implements OnInit {
                     doctorId : this._auth.getUserDetails("username"),
                     role : this._auth.getUserDetails("userData"),
                     id :this._auth.getUserDetails("username"),
-                    org : "Hospital1",
+                    org : form.value.org,
                     patientId : form.value.patientId,
                     diagnosis : form.value.diagnosis,
                     medication : form.value.medication

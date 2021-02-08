@@ -1,3 +1,4 @@
+import { DoctorComponent } from './../../view/doctor/doctor.component';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -31,11 +32,12 @@ export class ReadComponent implements OnInit {
   ngOnInit(): void {
     this.isDoctor = this._auth.isUserDoctor();
     this.isPatient = this._auth.isUserPatient();
+    this.username = this._auth.getUserDetails("username");
+    this.patientId = this._auth.getUserDetails("username");
+    this.role = this._auth.getUserDetails("userData");
+    this.id = this._auth.getUserDetails("username");
+
     if(this.isPatient) {
-      this.username = this._auth.getUserDetails("username");
-      this.patientId = this._auth.getUserDetails("username");
-      this.role = 'patient';
-      this.id = this._auth.getUserDetails("username");
       this.org = "Hospital1";
     }
 
@@ -53,20 +55,19 @@ export class ReadComponent implements OnInit {
   }
   // for doctor to read Patient Data
   readByDoctor(form : NgForm){
-    console.log(form.value);
     
-    this.role = ""
-    this._api.postTypeRequest("readPatientData",form.value).subscribe((res : any)=>{
-      if (res){
+    let payload = { username: this.username,
+                    patientId: form.value.patientId,
+                    role: this.role,
+                    id: this.id,
+                    doctorId: this.username,
+                    org: form.value.org }
+    console.log(payload);
+    
+    this._api.postTypeRequest("readPatientData",payload).subscribe((res : any)=>{
+
       this.patient = Array.of(res);
       console.log(res);
-    }
-      else {
-        console.log(res);
-        alert(res)}
-    },
-    err => {
-      this.errorMessage = err['error'].message;
     });
   }
 

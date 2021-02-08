@@ -68,6 +68,8 @@ const authenticateJWT = (req, res, next) => {
 	const password = fetchCredentials(req.body.username,"password");
     jwt.verify(token, password, (err, user) => {
       if (err) {
+        console.log(err);
+        console.log(password);
         return res.sendStatus(403);
       }
 			req.user = user;

@@ -36,7 +36,19 @@ export class RegisterComponent implements OnInit {
     
     console.log('Your form data : ', form.value, );
     this._url = form.value.role;
-    this._api.postTypeRequest(`register${this._url}`, form.value).subscribe((res: any) => {
+    let payload = { username : this._auth.getUserDetails("username"),
+                    role : form.value.role,
+                    id: form.value.id,
+                    doctorId : form.value.doctorId,
+                    org : form.value.org,
+                    address : form.value.address,
+                    telephone : form.value.telephone,
+                    patientId : form.value.patientId,
+                    medication : form.value.medication,
+                    diagnosis : form.value.diagnosis
+
+      }
+    this._api.postTypeRequest(`register${this._url}`, payload).subscribe((res: any) => {
       if (res) {
         console.log(JSON.stringify(res));
         alert(JSON.stringify(res));

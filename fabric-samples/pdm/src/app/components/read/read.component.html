@@ -9,13 +9,13 @@
     <ng-template #elseBlock >
         
             <div class='col-md-4 offset-4 mt-5' *ngIf="this.isDoctor">
-            <p>doctor read works!</p>
+            
 
             <form #myform = "ngForm" enctype="application/x-www-form-urlencoded" (ngSubmit)="readByDoctor(myform)">
 
                 <div class = "form-group">
 
-                    <label for="username">Username: </label>
+                    <!-- <label for="username">Username: </label>
                     <input class="form-control" name = "username" placeholder="e.g. doctor1" ngModel>
                 
                  
@@ -26,21 +26,21 @@
                 
                     <label for="Role" > Role:</label> 
                     <select name="role" class="form-control" ngModel>
-                        <option selected  name="role" value="{{roleDoctor}}" > {{roleDoctor}}</option>
-                    </select>
+                        <option selected  name="role" value="{{roleDoctor}}" > {{roleDoctor}}</option> 
+                    </select> -->
                     
                     <label for="PatientId">Patient Id: </label>
                     <input class="form-control"  name="patientId" placeholder="e.g. Patient1" ngModel>
                  
 
-                 
+<!--                  
                     <label for="id">Id: </label>
                     <input class="form-control"  name="id" value="username" ngModel>
                  
 
                  
                     <label for="docrtorId">Doctor Id: </label>
-                    <input class="form-control"   name="doctorId" value="username" ngModel>
+                    <input class="form-control"   name="doctorId" value="username" ngModel> -->
                 
 
                  

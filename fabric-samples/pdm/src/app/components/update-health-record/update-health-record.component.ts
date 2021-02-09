@@ -23,7 +23,9 @@ export class UpdateHealthRecordComponent implements OnInit {
   patientId :string;
   org : string;
   
-
+  update = false;
+  diagnosis: string;
+  medication: any;
 
   constructor(private _auth : AuthService,
               private _api : ApiService) { }
@@ -34,8 +36,10 @@ export class UpdateHealthRecordComponent implements OnInit {
     this.doctorId = this._auth.getUserDetails("username");
     this.role = this._auth.getUserDetails("userData");
     this.id = this._auth.getUserDetails("username");
-    this.patientId = this._auth.getUserDetails("patientId");
-    this.org = this._auth.getUserDetails("org");
+    
+    
+    
+   
   }
 
  
@@ -45,8 +49,8 @@ export class UpdateHealthRecordComponent implements OnInit {
     let payload = { username : this.username,
                     doctorId : this.doctorId,
                     id :this.id,
-                    org : this._auth.getUserDetails("org"),
-                    patientId : this._auth.getUserDetails("patientId"),
+                    org : form.value.org,
+                    patientId : form.value.patientId,
                     diagnosis : form.value.diagnosis,
                     medication : form.value.medication
                   }
@@ -55,11 +59,14 @@ export class UpdateHealthRecordComponent implements OnInit {
     this._api.postTypeRequest("updatePatientHealthRecord",payload).subscribe((res : any)=>{ 
       this.patient = Array.of(res);
       console.log(res);
+
+      
       
     });
   }
 
 
-  
+ 
+ 
 
 }

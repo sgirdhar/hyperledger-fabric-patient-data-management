@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit {
                     doctorId : form.value.doctorId,
                     org : form.value.org,
                     address : form.value.address,
-                    telephone : form.value.telephone,
+                    tel : form.value.tel,
                     patientId : form.value.patientId,
                     medication : form.value.medication,
                     diagnosis : form.value.diagnosis

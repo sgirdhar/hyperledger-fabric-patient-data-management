@@ -9,19 +9,32 @@
     <ng-template #elseBlock >
         
 
-            <form #myform = "ngForm" enctype="application/x-www-form-urlencoded" (ngSubmit)="UpdateHealthRecord(myform) " >
+            <form #myform = "ngForm" enctype="application/x-www-form-urlencoded" (ngSubmit)="UpdateHealthRecord(myform); readByDoctor(myform) " >
 
-                <div class = "form-group" class = 'col-md-4 offset-4 mt-5'>
-                    
+                <div class = "form-group" class='col-md-4 offset-4 mt-5'>
+                    <label for="patientId">PatientId:  
+                    <input  class="form-control"   name="patientId" placeholder="e.g. patient1"  ngModel >
+                    </label>
+
+                    <br>
+
+                    <label for="patientId">Organisation:  
+                        <input  class="form-control"   name="org" placeholder="e.g. Hospital1"  ngModel >
+                    </label>   
+                     <br>   
+               
                     <label for="diagnosis">Diagnosis:  
-                    <input  class="form-control"   name="diagnosis" placeholder="Diagnosis"  ngModel >
+                    <input type="text" class="form-control"   name="diagnosis" placeholder="Diagnosis"  [(ngModel)]="diagnosis" ngModel >
                     </label>
                     <br>
+
                     <label for="org">Medication: 
-                    <input  class="form-control"  name="medication" placeholder="Medication" ngModel>
-                    </label>
+                    <input  class="form-control"  name="medication" placeholder="Medication"  ngModel>
+                     </label>
                     <br>
+
                     <input   class= 'btn btn-outline-info' type = "submit" name = "Update" value = "Update">
+                
                 </div>
             
             </form>   
@@ -30,8 +43,8 @@
 
 
         
-            <!-- <div >
-                 Will show only below table in case of patient
+            <div >
+                 <!-- Will show only below table in case of patient -->
             <table class="table">
                 <thead>
                     <tr>
@@ -56,6 +69,6 @@
                 </tbody>
     
             </table>
-            </div>        -->
+            </div>       
 
     </ng-template>

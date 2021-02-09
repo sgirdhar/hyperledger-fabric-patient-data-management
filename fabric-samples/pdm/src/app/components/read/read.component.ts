@@ -65,10 +65,11 @@ export class ReadComponent implements OnInit {
     console.log(payload);
     
     this._api.postTypeRequest("readPatientData",payload).subscribe((res : any)=>{
-      this._auth.setDataInLocalStorage("patientId",form.value.patientId);
-      this._auth.setDataInLocalStorage("org",form.value.org);
+      
       this.patient = Array.of(res);
-
+      if(res==="Access Denied"){
+        alert(res);
+      }
       console.log(res);
     });
   }

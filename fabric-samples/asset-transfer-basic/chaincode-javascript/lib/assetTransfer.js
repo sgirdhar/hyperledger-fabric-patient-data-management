@@ -64,6 +64,21 @@ class AssetTransfer extends Contract {
         const medication = userObj.medication;
         const doctorId = userObj.doctorId;
 
+        const ehrList = [];
+        // let ehrCount = ehrList.length;
+        // ehrCount = ehrCount + 1;
+
+        if (diagnosis !== null && diagnosis !== '' && medication !== null && medication !== '') {
+            const ehr = {
+                RecordNo: 'EHR1',
+                Diagnosis: diagnosis,
+                Medication: medication,
+                // Timestamp: ctx.getTxTimestamp(),
+                DoctorId: doctorId
+            };
+            ehrList.push(ehr);
+        }
+
         const exists = await this.RecordExists(ctx, patientId);
         if (exists) {
             throw new Error(`The record ${patientId} already exist`);
@@ -77,6 +92,8 @@ class AssetTransfer extends Contract {
             Diagnosis: diagnosis,
             Medication: medication,
             DoctorAuthorizationList:[doctorId],
+            EHR: ehrList,
+
             // DoctorAuthorizationList: doctorAuthorizationList,
             // OrganisationAuthorizationList: organisationAuthorizationList,
             // docType: 'EHR',
@@ -126,7 +143,7 @@ class AssetTransfer extends Contract {
             RecordNo: 'EHR'+ehrCount,
             Diagnosis: diagnosis,
             Medication: medication,
-            Timestamp: ctx.getTxTimestamp(),
+            // Timestamp: ctx.getTxTimestamp(),
             DoctorId: doctorId
         };
 

@@ -1,0 +1,28 @@
+Abstract
+Introduction - Towfic
+	- Motivation & Problem (how traditional system works) - Shubham
+	- Intro to HLF - Faraz
+	- How HLF can solve the problem - Vineeth
+		- smart contracts, private data, decentralized system advantages etc
+Design
+	- Architecture (Detailed system explaination)
+	- Scenarios (how the users interact with the system, Ex: Admin enrolls a doctor. Admin registers Patient.)
+	- SECURITY ???
+Implementation
+	- Tech stack
+	- HLF network
+		- smart contracts
+		- ...
+	- Backend
+	- Frontend
+Discussion
+	- How advantages work technically and practically
+	- challenges in implementation (ex: with private data)
+	- Drawbacks and workarounds
+	- comparison with traditional Db system ???
+Conclusion
+	- Final verdict from us
+Future Scope
+	- meta data concept
+	- private data
+	- scalling

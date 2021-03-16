@@ -12,7 +12,7 @@ class User {
     this.patientId = obj.patientId
     this.org = obj.org
     this.address = obj.address
-    this.telephone = obj.telephone
+    this.telephone = obj.tel
     this.diagnosis = obj.diagnosis
     this.medication = obj.medication
     this.doctorId = obj.doctorId
@@ -21,3 +21,4 @@ class User {
 }
 
 module.exports = User
+

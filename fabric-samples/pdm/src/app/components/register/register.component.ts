@@ -5,8 +5,8 @@ import { SelectorListContext } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ApiService } from '../services/services/api.service';
-import { AuthService } from '../services/services/auth.service';
+import { ApiService } from 'src/app/services/api/api.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -16,9 +16,10 @@ import { AuthService } from '../services/services/auth.service';
 export class RegisterComponent implements OnInit {
   isLogin: boolean = false;
   isAdmin : boolean = false;
-  errorMessage
+  errorMessage;
   roles = ["Doctor","Patient"];
   _url ;
+  username;
   
 
   constructor(
@@ -29,22 +30,35 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.isUserLogin() ;
-    this.isUserAdmin();
+    this.isAdmin = this._auth.isUserAdmin();
+    this.username = this._auth.getUserDetails("username")
   }
 
   onSubmit(form: NgForm) {
     
-    console.log('Your form data : ', form.value, );
+    console.log('Your form data : ', form.value );
     this._url = form.value.role;
-    this._api.postTypeRequest(`register${this._url}`, form.value).subscribe((res: any) => {
-      if (res.response) {console.log(res);
-        //this._auth.setDataInLocalStorage('userData', JSON.stringify(res.data));
-       // this._auth.setDataInLocalStorage('token', res.getToken());this._router.navigate(['login']);
-       window.location.reload();
+    let payload = { username : this.username,
+                    role : form.value.role,
+                    id: form.value.id,
+                    doctorId : form.value.doctorId,
+                    org : form.value.org,
+                    address : form.value.address,
+                    tel : form.value.tel,
+                    patientId : form.value.patientId,
+                    medication : form.value.medication,
+                    diagnosis : form.value.diagnosis
+                  }
+      console.log ( payload);
+    this._api.postTypeRequest(`register${this._url}`, payload).subscribe((res: any) => {
+      if (res) {
+        console.log(JSON.stringify(res));
+        alert(JSON.stringify(res));
+      window.location.reload();
       } 
       else {
         console.log(res);
-        alert(res.msg)}
+        alert(res)}
     },
     
     err => {
@@ -60,13 +74,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  isUserAdmin(){
-    if (this._auth.getUserDetails()=="admin"){
-      this.isAdmin = true;
-    }
-    else {
-      this.isAdmin = false;
-    }
+
 
     
 
@@ -82,7 +90,7 @@ export class RegisterComponent implements OnInit {
     //   }
     
     // }
-  }
+  
  
 
 

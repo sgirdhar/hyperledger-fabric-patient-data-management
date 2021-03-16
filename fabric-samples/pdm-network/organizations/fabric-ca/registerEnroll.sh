@@ -104,7 +104,7 @@ function createHospital2() {
   #  rm -rf $FABRIC_CA_CLIENT_HOME/msp
 
   set -x
-  fabric-ca-client enroll -u https://admin:adminpw@localhost:8054 --caname ca-hospital2 --tls.certfiles ${PWD}/organizations/fabric-ca/hospital2/tls-cert.pem
+  fabric-ca-client enroll -u https://admin2:adminpw@localhost:8054 --caname ca-hospital2 --tls.certfiles ${PWD}/organizations/fabric-ca/hospital2/tls-cert.pem
   { set +x; } 2>/dev/null
 
   echo 'NodeOUs:
@@ -117,7 +117,7 @@ function createHospital2() {
     OrganizationalUnitIdentifier: peer
   AdminOUIdentifier:
     Certificate: cacerts/localhost-8054-ca-hospital2.pem
-    OrganizationalUnitIdentifier: admin
+    OrganizationalUnitIdentifier: admin2
   OrdererOUIdentifier:
     Certificate: cacerts/localhost-8054-ca-hospital2.pem
     OrganizationalUnitIdentifier: orderer' >${PWD}/organizations/peerOrganizations/hospital2.com/msp/config.yaml
@@ -134,7 +134,7 @@ function createHospital2() {
 
   infoln "Register the org admin"
   set -x
-  fabric-ca-client register --caname ca-hospital2 --id.name hospital2admin --id.secret hospital2adminpw --id.type admin --tls.certfiles ${PWD}/organizations/fabric-ca/hospital2/tls-cert.pem
+  fabric-ca-client register --caname ca-hospital2 --id.name hospital2admin2 --id.secret hospital2adminpw --id.type admin2 --tls.certfiles ${PWD}/organizations/fabric-ca/hospital2/tls-cert.pem
   { set +x; } 2>/dev/null
 
   mkdir -p organizations/peerOrganizations/hospital2.com/peers
@@ -179,7 +179,7 @@ function createHospital2() {
 
   infoln "Generate the org admin msp"
   set -x
-  fabric-ca-client enroll -u https://hospital2admin:hospital2adminpw@localhost:8054 --caname ca-hospital2 -M ${PWD}/organizations/peerOrganizations/hospital2.com/users/Admin@hospital2.com/msp --tls.certfiles ${PWD}/organizations/fabric-ca/hospital2/tls-cert.pem
+  fabric-ca-client enroll -u https://hospital2admin2:hospital2adminpw@localhost:8054 --caname ca-hospital2 -M ${PWD}/organizations/peerOrganizations/hospital2.com/users/Admin@hospital2.com/msp --tls.certfiles ${PWD}/organizations/fabric-ca/hospital2/tls-cert.pem
   { set +x; } 2>/dev/null
 
   cp ${PWD}/organizations/peerOrganizations/hospital2.com/msp/config.yaml ${PWD}/organizations/peerOrganizations/hospital2.com/users/Admin@hospital2.com/msp/config.yaml

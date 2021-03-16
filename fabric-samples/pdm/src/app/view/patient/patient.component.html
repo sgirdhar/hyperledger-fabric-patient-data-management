@@ -1,1 +1,24 @@
-<p>patient works!</p>
+<div *ngIf="!this.isPatient; then thenBlock else elseBlock" ></div>
+<ng-template #thenBlock >
+    <div class = 'col-md-4 offset-4 mt-5'>
+    <h3> Please Log in as Patient</h3>
+    </div>
+</ng-template>
+<!-- Please edit below only -->
+<ng-template #elseBlock >
+    <div class = 'col-md-4 offset-4 mt-5'>
+        <h1>Welcome {{username}}!</h1>
+       <!--  <li class="nav-item"><a class="nav-link" [routerLink] = "['../read']" routerLinkActive = "active" >Read Patient Data</a></li>
+        <li class="nav-item"><a class="nav-link" [routerLink] = "['../update']" routerLinkActive = "active" >Update Personal Info</a></li>
+        <li class="nav-item"><a class="nav-link" [routerLink] = "['../grant']" routerLinkActive = "active" >Grant Access to Doctor</a></li>
+        <li class="nav-item"><a class="nav-link" [routerLink] = "['../revoke']" routerLinkActive = "active" >Revoke Access for a Doctor</a></li>
+      -->
+      <button mat-button><a class="nav-link" [routerLink] = "['../read']" routerLinkActive = "active" >Read Patient Data</a></button>
+      <button mat-button style="float: right;"><a class="nav-link" [routerLink] = "['../grant']" routerLinkActive = "active" >Grant Access to Doctor</a></button>
+      <br>
+      <button mat-button><a class="nav-link" [routerLink] = "['../update']" routerLinkActive = "active" >Update Personal Info</a></button>
+      
+      <button mat-button style="float: right;"><a class="nav-link" [routerLink] = "['../revoke']" routerLinkActive = "active" >Revoke Access for a Doctor</a></button>
+  </div>
+</ng-template>
+<router-outlet></router-outlet>

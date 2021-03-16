@@ -21,14 +21,14 @@ async function main() {
     const wallet = await Wallets.newFileSystemWallet(walletPath)
     console.log(`Wallet path: ${walletPath}`)
 
-    // Check to see if we've already enrolled the admin user.
-    const identity = await wallet.get('admin')
+    // Check to see if we've already enrolled the admin2 user.
+    const identity = await wallet.get('admin2')
     if (identity) {
-      console.log('An identity for the admin user "admin2" already exists in the wallet')
+      console.log('An identity for the admin2 user "admin2" already exists in the wallet')
       return
     }
 
-    // Enroll the admin user, and import the new identity into the wallet.
+    // Enroll the admin2 user, and import the new identity into the wallet.
     const enrollment = await ca.enroll({ enrollmentID: 'admin2', enrollmentSecret: 'adminpw' })
     const x509Identity = {
       credentials: {
@@ -39,9 +39,9 @@ async function main() {
       type: 'X.509'
     }
     await wallet.put('admin2', x509Identity)
-    console.log('Successfully enrolled admin user "admin2" and imported it into the wallet')
+    console.log('Successfully enrolled admin2 user "admin2" and imported it into the wallet')
   } catch (error) {
-    console.error(`Failed to enroll admin user "admin2": ${error}`)
+    console.error(`Failed to enroll admin2 user "admin2": ${error}`)
     process.exit(1)
   }
 }

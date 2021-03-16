@@ -68,6 +68,8 @@ const authenticateJWT = (req, res, next) => {
 	const password = fetchCredentials(req.body.username,"password");
     jwt.verify(token, password, (err, user) => {
       if (err) {
+        console.log(err);
+        console.log(password);
         return res.sendStatus(403);
       }
 			req.user = user;
@@ -114,9 +116,9 @@ clinetApp.post('/registerDoctor', authenticateJWT,  async (req, res) => {
 	const doctorObj = new User(req.body)
 	const response = await app.registerDoctor(doctorObj);
 	if (response.error) {
-    res.send(response.error);
+    res.send(JSON.stringify(response.error));
   } else {
-    res.send(response);
+    res.send(JSON.stringify(response));
   }
 });
 

@@ -8,5 +8,6 @@ export class User {
       medication : string;
       doctorId : string;
       role : string;
+      doctorAuthorizationList: any[] ;
     }
   

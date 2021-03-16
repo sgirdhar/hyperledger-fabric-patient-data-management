@@ -1,13 +1,36 @@
- <nav class="navbar navbar-expand-lg navbar-light bg-light"> 
-  <!-- <a class="navbar-brand" href="#">Navbar</a>  -->
-   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item"><a class="nav-link" [routerLink] = "['login']" routerLinkActive = "active">Login</a></li>
-    </ul>
+<div class="top-nav"><h1>Patient Data Management System</h1></div>
+<div class="wrapper">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"> 
+      <!-- <a class="navbar-brand" href="#">Navbar</a>  -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+ 
+        <ul class="navbar-nav navbar-nav-add text-size">
+          <button mat-button><a class="nav-link" [routerLink] = "['login']" routerLinkActive = "active">Login</a></button>
+          <button mat-button><a class="nav-link" [routerLink] = "['admin']" routerLinkActive = "active">Admin</a></button>
+          <button mat-button><a class="nav-link" [routerLink] = "['doctor']" routerLinkActive = "active">Doctor</a></button>
+          <button mat-button><a class="nav-link" [routerLink] = "['patient']" routerLinkActive = "active">Patient</a></button>
+        </ul>
+      </div>
+    </nav> 
   </div>
-</nav> 
-<router-outlet></router-outlet>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+  <article>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+  </article>
+  <footer class="footer">
+    
+      <h3 class="textDiv">Team Titanium</h3> 
+  
+  </footer>
+
 

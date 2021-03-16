@@ -1,0 +1,30 @@
+
+.navbar-nav-add{
+    background-color: aliceblue;
+}
+.text-size a{
+    font-size: medium;
+}
+.top-nav{
+    text-align: center;
+    background-color:rgb(147, 199, 248);
+    padding: 20px 0 20px 0;
+    text-decoration: blue;
+}
+.wrapper{
+    margin:0 auto;
+    width:1000px
+}
+.footer{
+    padding: 10px;
+    background-color: #233841;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+}
+.textDiv{
+    color:wheat;
+    text-align: center;
+}

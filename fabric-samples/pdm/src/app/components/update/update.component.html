@@ -1,0 +1,68 @@
+<div *ngIf="!this.isPatient; then thenBlock else elseBlock" ></div>
+
+    <ng-template #thenBlock >
+        <div class = 'col-md-4 offset-4 mt-5'>
+        <h1> Please Log in as Patient</h1>
+        </div>  
+    </ng-template>
+<!-- Please edit below only -->
+    <ng-template #elseBlock >
+        
+            <div class='col-md-4 offset-4 mt-5' >
+
+                <h1>Update Personal Information</h1>
+
+            <form #myform = "ngForm" enctype="application/x-www-form-urlencoded" (ngSubmit)="UpdatePersonalInfo(myform)">
+
+                <div class = "form-group">
+                 
+                    <label for="address">Address:  </label>
+                    <input class="form-control"   name="address" placeholder="Address" [(ngModel)]="add" ngModel >
+                 
+                    <br>
+
+                    <label for="telephone">Telephone: </label>
+                    <input type="number" class="form-control"  name="telephone" placeholder="Telephone" [(ngModel)]="tel" ngModel>
+              
+                    <br>
+                    <input class= 'btn btn-outline-info' type = "submit" name = "Update" value = "Update">
+                
+                </div>
+            </form>   
+
+        </div>
+
+
+        <div *ngIf="this.returnsData; then block1" ></div>
+
+        <ng-template #block1 >
+            <div >
+                <!-- Will show only below table in case of patient -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Patient Id</th>
+                        <th>Doctor Authorization List</th>
+                        <th>Diagnosis</th>
+                        <th>Medication</th>
+                        <th>Address</th>
+                        <th>Telephone</th>
+                    </tr>
+                </thead>
+    
+                <tbody>
+                    <tr *ngFor = "let p of patient">
+                        <td>{{p?.PatientId}}</td>
+                        <td>{{p?.DoctorAuthorizationList}}</td> 
+                        <td>{{p?.Diagnosis}}</td>
+                        <td>{{p?.Medication}}</td>
+                        <td>{{p?.Address}}</td>
+                        <td>{{p?.Telephone}}</td>
+                    </tr>
+                </tbody>
+    
+            </table>
+            </div> 
+        </ng-template>        
+
+    </ng-template>

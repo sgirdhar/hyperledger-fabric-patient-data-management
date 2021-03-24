@@ -116,23 +116,10 @@ class AssetTransfer extends Contract {
         if(!auth){
             return JSON.stringify('Access Denied');
         }
-
         const updatedRecord = JSON.parse(recordJSON.toString());
-        const ehrList = updatedRecord.EHR;
-        let ehrCount = ehrList.length;
-        ehrCount = ehrCount + 1;
 
-        const ehr = {
-            RecordNo: 'EHR'+ehrCount,
-            Diagnosis: diagnosis,
-            Medication: medication,
-            Timestamp: ctx.getTxTimestamp(),
-            DoctorId: doctorId
-        };
-
-        ehrList.push(ehr);
-        updatedRecord.EHR = ehrList;
-
+        updatedRecord.Diagnosis = diagnosis;
+        updatedRecord.Medication = medication;
         ctx.stub.putState(patientId, Buffer.from(JSON.stringify(updatedRecord)));
         return JSON.stringify(updatedRecord);
     }

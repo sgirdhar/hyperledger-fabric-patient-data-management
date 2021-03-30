@@ -15,7 +15,7 @@ const { buildCCPHospital, buildWallet, prettyJSONString, registerAndEnrollUser, 
 const orgConst = require('./organizationConstant.json')
 
 const channelName = 'mychannel'
-const chaincodeName = 'basic'
+const chaincodeName = 'custom'
 
 const walletPath = path.join(__dirname, 'wallet')
 
@@ -106,6 +106,7 @@ async function evaluateTransaction(funcName, obj) {
   try {
     const network = await connectNetwork(obj)
     const contract = network.getContract(chaincodeName)
+    console.log(`\n *********contract********** ${contract}`)
     const stringObject = JSON.stringify(obj)
     console.log(`\n evaluateTransaction()--> ${funcName}`)
     const result = await contract.evaluateTransaction(funcName, stringObject)

@@ -27,43 +27,57 @@ $ cd ../fabric-samples/pdm-network
 
 5. Use the following command to start the network, with 2 organization hospital1 and hospital2 with one peer each (peer0) and an Orderer node.
 ```bash
-$ ./network.sh up
+$ ./network.sh createChannel -ca -s couchdb
 ```
-Should display the result in the terminal as follows,
-![Alt Text](https://github.com/Shubham-Girdhar/hyperledger-fabric-patient-data-management/blob/main/Screenshots/network%20up.png)
-
-Docker dashboard will show the containers created for those nodes as follows,
-![Alt Text](https://github.com/Shubham-Girdhar/hyperledger-fabric-patient-data-management/blob/main/Screenshots/Docker%20container%20for%20nodes.png)
-
-6. To create a channel with specific name use the following command, (remove the arguments to create a default channel called 'mychannel').
-**Note: Channel names must be all lower case, less than 250 characters long and match the regular expression [a-z][a-z0-9.-]***
-```bash
-$ ./network.sh createChannel -c hospitalchannel
-```
-
-Results will be as follows,
-Docker dashboard will show the containers created for those nodes as follows,
-![Alt Text](https://github.com/Shubham-Girdhar/hyperledger-fabric-patient-data-management/blob/main/Screenshots/create%20channel%202.png)
 
 7. Deploy the chaincode.
 **Note: If default channel name is not used then the following command applies, else remove the channel arguments (-c) and run the command.**
 ```bash
-$ ./network.sh deployCC -c hospitalchannel -ccn basic -ccp ../asset-transfer-basic/chaincode-javascript/ -ccl javascript
+$ ./network.sh deployCC -ccn custom -ccp ../pdm-custom/chaincode-javascript -ccl javascript
 ```
-This command will deploy a javascript chaincode on hospitalchannel
+This command will deploy a javascript chaincode on mychannel
 
-Result:
-![Alt Text](https://github.com/Shubham-Girdhar/hyperledger-fabric-patient-data-management/blob/main/Screenshots/create%20channel%201.png)
-![Alt Text](https://github.com/Shubham-Girdhar/hyperledger-fabric-patient-data-management/blob/main/Screenshots/Docker%20container%20with%20chaincode.png)
 
 8. Use this command to bring the network down
 ```bash
 $ ./network.sh down
 ```
 
+### To setup the SDK
+Reguister the admins by excuting the regesisterHospital1Admin.js and regesisterHospital2Admin.js in th sdk directory
+```bash
+$ cd ..
+$ cd sdk
+```
+
+```bash
+$ node regesisterHospital1Admin.js
+$ node regesisterHospital2Admin.js
+```
+
+### To setup the SDK
+Move to the client directory and execute the client.js
+```bash
+$ cd ..
+$ cd client
+```
+```bash
+$ node client.js
+```
+
+### To setup the Angulat Frontend
+Change to the directory pdm
+```bash
+$ cd ..
+$ cd pdm
+```
+Then excute the following commands
+```bash
+$ ng serve -o
+```
+
 ## Troubleshooting
 Incase if any of the commands fail due to configurations or the network was not brought down properly use the following commands to clear the corrupted docker images and fix the issue.
-
 
 1. Stop the containers.
 ```bash

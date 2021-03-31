@@ -2,7 +2,7 @@
  * @author Vineeth Bhat
  * @email vineeth.bhat@stud.fra-uas.de
  * @create date 31-12-2020 12:03:08
- * @modify date 09-01-2021 12:41:34
+ * @modify date 30-03-2021 21:18:26
  * @desc
  */
 
@@ -12,8 +12,8 @@ const fs = require('fs')
 const path = require('path')
 const orgConst = require('./organizationConstant.json')
 
-const adminUserId = 'admin'
-const adminUserPasswd = 'adminpw'
+// const adminUserId = 'admin'
+// const adminUserPasswd = 'adminpw'
 
 /**
  * Method to retrive the organisation configuration from the network.
@@ -85,6 +85,8 @@ exports.buildCAClient = (FabricCAServices, ccp, caHostName) => {
  */
 exports.enrollAdmin = async(caClient, wallet, orgMspId) => {
   try {
+    const adminUserId = 'admin'
+    const adminUserPasswd = 'adminpw'
     // Check to see if we've already enrolled the admin user.
     const identity = await wallet.get(adminUserId)
     if (identity) {
@@ -119,8 +121,11 @@ exports.enrollAdmin = async(caClient, wallet, orgMspId) => {
  * @param  {} userId
  * @param  {} affiliation
  */
-exports.registerAndEnrollUser = async(caClient, wallet, orgMspId, userId, affiliation) => {
+exports.registerAndEnrollUser = async(caClient, wallet, orgMspId, userObj, affiliation) => {
   try {
+    const userId = userObj.id
+    const username = userObj.username
+
     // Check to see if we've already enrolled the user
     const userIdentity = await wallet.get(userId)
     if (userIdentity) {
@@ -129,7 +134,7 @@ exports.registerAndEnrollUser = async(caClient, wallet, orgMspId, userId, affili
     }
 
     // Must use an admin to register a new user
-    const adminIdentity = await wallet.get(adminUserId)
+    const adminIdentity = await wallet.get(username)
     if (!adminIdentity) {
       console.log('An identity for the admin user does not exist in the wallet')
       console.log('Enroll the admin user before retrying')
@@ -138,7 +143,7 @@ exports.registerAndEnrollUser = async(caClient, wallet, orgMspId, userId, affili
 
     // build a user object for authenticating with the CA
     const provider = wallet.getProviderRegistry().getProvider(adminIdentity.type)
-    const adminUser = await provider.getUserContext(adminIdentity, adminUserId)
+    const adminUser = await provider.getUserContext(adminIdentity, username)
 
     // Register the user, enroll the user, and import the new identity into the wallet.
     // if affiliation is specified by client, the affiliation value must be configured in CA

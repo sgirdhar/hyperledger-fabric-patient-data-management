@@ -2,7 +2,7 @@
  * @author Vineeth Bhat
  * @email vineeth.bhat@stud.fra-uas.de
  * @create date 31-12-2020 12:17:00
- * @modify date 11-01-2021 01:11:56
+ * @modify date 30-03-2021 22:04:28
  * @desc server side methods to implement application functionalities.
  */
 
@@ -31,10 +31,11 @@ const walletPath = path.join(__dirname, 'wallet')
 async function registerUser(userObj) {
   try {
     const orgDetail = orgConst[userObj.org]
+
     const ccp = buildCCPHospital(userObj.org)
     const caClient = buildCAClient(FabricCAServices, ccp, orgDetail.ca)
     const wallet = await buildWallet(Wallets, walletPath)
-    await registerAndEnrollUser(caClient, wallet, orgDetail.msp, userObj.id, orgDetail.department)
+    await registerAndEnrollUser(caClient, wallet, orgDetail.msp, userObj, orgDetail.department)
   } catch (error) {
     console.error(`\nregisterUser() --> Failed to register user ${userObj.id}: ${error}`)
     throw new Error(`Failed to register user ${userObj.id}: ${error}`)

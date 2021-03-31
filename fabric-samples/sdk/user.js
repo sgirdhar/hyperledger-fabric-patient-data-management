@@ -2,7 +2,7 @@
  * @author Vineeth Bhat
  * @email vineeth.bhat@stud.fra-uas.de
  * @create date 10-01-2021 10:56:41
- * @modify date 10-01-2021 20:30:27
+ * @modify date 09-03-2021 21:17:33
  * @desc [description]
  */
 
@@ -17,6 +17,7 @@ class User {
     this.medication = obj.medication
     this.doctorId = obj.doctorId
     this.role = obj.role
+    this.username = obj.username
   }
 }
 

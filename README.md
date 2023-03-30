@@ -51,8 +51,8 @@ $ cd sdk
 ```
 
 ```bash
-$ node regesisterHospital1Admin.js
-$ node regesisterHospital2Admin.js
+$ node registerHospital1Admin.js
+$ node registerHospital2Admin.js
 ```
 
 ### To setup the SDK
